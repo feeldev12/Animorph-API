@@ -14,7 +14,6 @@ package me.feeldev.animorph.api;
  * }</pre>
  */
 public final class AnimorphProvider {
-    private static IMorphAPI api;
 
     private AnimorphProvider() {}
 
@@ -27,10 +26,7 @@ public final class AnimorphProvider {
      */
     @SuppressWarnings("unchecked")
     public static <P> IMorphAPI<P> getApi() {
-        if (api == null) {
-            throw new IllegalStateException("Animorph API is not initialized. Is the Animorph plugin loaded?");
-        }
-        return api;
+        throw new NotImplementedException();
     }
 
     /**
@@ -40,7 +36,7 @@ public final class AnimorphProvider {
      * @param api the API implementation to register
      */
     public static <P> void register(IMorphAPI<P> api) {
-        AnimorphProvider.api = api;
+        throw new NotImplementedException();
     }
 
     /**
@@ -49,6 +45,6 @@ public final class AnimorphProvider {
      * @return {@code true} if the API has been registered and is ready to use
      */
     public static boolean isAvailable() {
-        return api != null;
+        throw new NotImplementedException();
     }
 }
