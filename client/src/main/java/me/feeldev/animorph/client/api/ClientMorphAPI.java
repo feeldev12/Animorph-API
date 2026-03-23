@@ -1,5 +1,6 @@
 package me.feeldev.animorph.client.api;
 
+import me.feeldev.animorph.api.event.AnimorphEventBus;
 import me.feeldev.animorph.client.interfaces.ICustomMolangQuery;
 import me.feeldev.animorph.client.interfaces.IPlayerData;
 
@@ -28,8 +29,27 @@ import java.util.UUID;
 public final class ClientMorphAPI {
 
     private static ClientMorphAPIHandler handler;
+    private static final AnimorphEventBus eventBus = new AnimorphEventBus();
 
     private ClientMorphAPI() {}
+
+    /**
+     * Gets the client-side event bus for registering event listeners.
+     * <p>
+     * Client events are post-events (not cancellable) that fire after the state
+     * has been applied. Use them to react to model, emote, and layer changes.
+     *
+     * <pre>{@code
+     * ClientMorphAPI.getEventBus().register(ClientModelUpdateEvent.class, event -> {
+     *     System.out.println("Player " + event.getPlayerId() + " model changed to " + event.getModelId());
+     * });
+     * }</pre>
+     *
+     * @return the client event bus instance
+     */
+    public static AnimorphEventBus getEventBus() {
+        return eventBus;
+    }
 
     /**
      * Registers the client API handler implementation. Called internally by the Animorph client mod on startup.

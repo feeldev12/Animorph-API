@@ -1,5 +1,7 @@
 package me.feeldev.animorph.api;
 
+import me.feeldev.animorph.api.event.AnimorphEventBus;
+
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -21,6 +23,21 @@ import java.util.Set;
  * @param <P> the player type ({@code Player} on Bukkit, {@code ServerPlayerEntity} on Fabric)
  */
 public interface IMorphAPI<P> {
+
+    /**
+     * Gets the event bus for registering event listeners.
+     * <p>
+     * Use this to listen for model updates, emote plays, and layer changes.
+     *
+     * <pre>{@code
+     * api.getEventBus().register(ModelUpdateEvent.class, event -> {
+     *     System.out.println(event.getPlayer() + " is changing model to " + event.getModelId());
+     * });
+     * }</pre>
+     *
+     * @return the event bus instance
+     */
+    AnimorphEventBus getEventBus();
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Text API
@@ -274,4 +291,78 @@ public interface IMorphAPI<P> {
      */
     @SuppressWarnings("unchecked")
     void applyLayer(P player, String modelId, String layerId, boolean state, P... viewers);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Player State API
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Gets the model ID currently assigned to a player.
+     *
+     * @param player the player to query
+     * @return the model ID (e.g. {@code "dragon"}), or {@code "empty"} if no model is assigned
+     */
+    String getModelId(P player);
+
+    /**
+     * Checks if a player has a custom model applied.
+     *
+     * @param player the player to check
+     * @return {@code true} if the player has a model other than {@code "empty"}
+     */
+    boolean hasModel(P player);
+
+    /**
+     * Gets the emote ID currently playing on a player (model-level).
+     *
+     * @param player the player to query
+     * @return the emote ID, or {@code "empty"} if no emote is playing
+     */
+    String getEmoteId(P player);
+
+    /**
+     * Checks if a player is currently playing an emote (model-level).
+     *
+     * @param player the player to check
+     * @return {@code true} if the player has an active emote
+     */
+    boolean isEmoting(P player);
+
+    /**
+     * Gets the emote ID currently playing on a specific layer of a player.
+     *
+     * @param player  the player to query
+     * @param layerId the layer ID to query
+     * @return the emote ID playing on the layer, or {@code "empty"} if none
+     */
+    String getLayerEmoteId(P player, String layerId);
+
+    /**
+     * Checks if a specific layer is currently visible on a player.
+     *
+     * @param player  the player to check
+     * @param layerId the layer ID to query
+     * @return {@code true} if the layer is active/visible, {@code false} if hidden or not found
+     */
+    boolean isLayerActive(P player, String layerId);
+
+    /**
+     * Gets all layer states for a player.
+     * <p>
+     * The returned map contains layer IDs as keys and their visibility state as values.
+     *
+     * @param player the player to query
+     * @return an unmodifiable map of layer ID to visibility state; empty map if no layers exist
+     */
+    Map<String, Boolean> getLayerStates(P player);
+
+    /**
+     * Gets all text placeholder values for a player.
+     * <p>
+     * The returned map contains placeholder keys and their current values.
+     *
+     * @param player the player to query
+     * @return an unmodifiable map of placeholder key to value; empty map if no placeholders are set
+     */
+    Map<String, String> getTextPlaceholders(P player);
 }
