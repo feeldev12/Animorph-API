@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "animorph-client-api",
+  "version": "${version}",
+  "name": "Animorph Client API",
+  "description": "Client-side API for the Animorph system.",
+  "authors": [
+    "@feeldev12"
+  ],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "environment": "client",
+  "depends": {
+    "fabricloader": ">=0.16.9",
+    "minecraft": ">=1.21"
+  }
+}
