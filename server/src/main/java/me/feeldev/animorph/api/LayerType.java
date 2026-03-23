@@ -21,7 +21,12 @@ public enum LayerType {
      * @return the matching LayerType, or {@code null} if not found
      */
     public static LayerType getByName(String name) {
-        throw new NotImplementedException();
+        for (LayerType type : values()) {
+            if (type.name().equalsIgnoreCase(name)) {
+                return type;
+            }
+        }
+        return null;
     }
 
     /**
@@ -32,6 +37,6 @@ public enum LayerType {
      * @throws ArrayIndexOutOfBoundsException if the ordinal is out of range
      */
     public static LayerType getByOrdinal(int ordinal) {
-        throw new NotImplementedException();
+        return values()[ordinal];
     }
 }

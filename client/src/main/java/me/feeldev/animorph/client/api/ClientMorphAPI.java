@@ -27,7 +27,31 @@ import java.util.UUID;
  */
 public final class ClientMorphAPI {
 
+    private static ClientMorphAPIHandler handler;
+
     private ClientMorphAPI() {}
+
+    /**
+     * Registers the client API handler implementation. Called internally by the Animorph client mod on startup.
+     *
+     * @param impl the handler implementation
+     * @throws IllegalStateException if the handler has already been registered
+     */
+    public static void register(ClientMorphAPIHandler impl) {
+        if (handler != null) {
+            throw new IllegalStateException("ClientMorphAPI has already been registered.");
+        }
+        handler = impl;
+    }
+
+    /**
+     * Checks if the client API is available.
+     *
+     * @return {@code true} if the handler has been registered and is ready to use
+     */
+    public static boolean isAvailable() {
+        return handler != null;
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Controller API
@@ -58,7 +82,8 @@ public final class ClientMorphAPI {
      * @throws IllegalArgumentException if a controller with the same ID is already registered
      */
     public static void registerController(String id, AnimorphController controller) {
-        throw new NotImplementedException();
+        if (handler == null) throw new NotImplementedException();
+        handler.registerController(id, controller);
     }
 
     /**
@@ -68,7 +93,8 @@ public final class ClientMorphAPI {
      * @return {@code true} if a controller with that ID exists
      */
     public static boolean hasController(String id) {
-        throw new NotImplementedException();
+        if (handler == null) throw new NotImplementedException();
+        return handler.hasController(id);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -90,7 +116,8 @@ public final class ClientMorphAPI {
      * @param name the variable name (e.g. {@code "query.my_stamina"})
      */
     public static void registerMolangVariable(String name) {
-        throw new NotImplementedException();
+        if (handler == null) throw new NotImplementedException();
+        handler.registerMolangVariable(name);
     }
 
     /**
@@ -114,7 +141,8 @@ public final class ClientMorphAPI {
      * @param query the query to register
      */
     public static <T extends IPlayerData> void addMolangQuery(ICustomMolangQuery<T> query) {
-        throw new NotImplementedException();
+        if (handler == null) throw new NotImplementedException();
+        handler.addMolangQuery(query);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -128,7 +156,8 @@ public final class ClientMorphAPI {
      * @return an {@link Optional} containing the model ID, or empty if the player has no model
      */
     public static Optional<String> getPlayerModelId(UUID playerId) {
-        throw new NotImplementedException();
+        if (handler == null) throw new NotImplementedException();
+        return handler.getPlayerModelId(playerId);
     }
 
     /**
@@ -138,7 +167,8 @@ public final class ClientMorphAPI {
      * @return {@code true} if the player has an active custom model
      */
     public static boolean hasModel(UUID playerId) {
-        throw new NotImplementedException();
+        if (handler == null) throw new NotImplementedException();
+        return handler.hasModel(playerId);
     }
 
     /**
@@ -148,7 +178,8 @@ public final class ClientMorphAPI {
      * @return an {@link Optional} containing the emote ID, or empty if no emote is playing
      */
     public static Optional<String> getEmoteId(UUID playerId) {
-        throw new NotImplementedException();
+        if (handler == null) throw new NotImplementedException();
+        return handler.getEmoteId(playerId);
     }
 
     /**
@@ -158,6 +189,7 @@ public final class ClientMorphAPI {
      * @return {@code true} if the player has an active emote
      */
     public static boolean isEmoting(UUID playerId) {
-        throw new NotImplementedException();
+        if (handler == null) throw new NotImplementedException();
+        return handler.isEmoting(playerId);
     }
 }

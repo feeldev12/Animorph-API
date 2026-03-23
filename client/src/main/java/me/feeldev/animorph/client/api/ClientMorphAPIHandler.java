@@ -17,6 +17,8 @@ public interface ClientMorphAPIHandler {
 
     boolean hasController(String id);
 
+    void registerMolangVariable(String name);
+
     <T extends IPlayerData> void addMolangQuery(ICustomMolangQuery<T> query);
 
     Optional<String> getPlayerModelId(UUID playerId);

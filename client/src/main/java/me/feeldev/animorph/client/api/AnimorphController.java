@@ -60,7 +60,7 @@ public abstract class AnimorphController {
      * @return the GeckoLib animation controller
      */
     public AnimationController<IPlayerData> createAnimationController(IPlayerData entity) {
-        throw new NotImplementedException();
+        return new AnimationController<>(entity, controllerName, transitionTime, createAnimationStateHandler(entity));
     }
 
     /**
@@ -91,7 +91,7 @@ public abstract class AnimorphController {
      * @return {@code true} to interrupt and stop the animation
      */
     protected boolean interrupt(AnimationState<IPlayerData> animationState) {
-        throw new NotImplementedException();
+        return false;
     }
 
     /**
@@ -100,7 +100,7 @@ public abstract class AnimorphController {
      * @return the controller name
      */
     public String getControllerName() {
-        throw new NotImplementedException();
+        return controllerName;
     }
 
     /**
@@ -109,6 +109,6 @@ public abstract class AnimorphController {
      * @return the transition time
      */
     public float getTransitionTime() {
-        throw new NotImplementedException();
+        return transitionTime;
     }
 }
