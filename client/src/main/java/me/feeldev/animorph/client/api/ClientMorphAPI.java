@@ -1,5 +1,6 @@
 package me.feeldev.animorph.client.api;
 
+import me.feeldev.animorph.api.IFirstPersonProperty;
 import me.feeldev.animorph.api.event.AnimorphEventBus;
 import me.feeldev.animorph.client.interfaces.ICustomMolangQuery;
 import me.feeldev.animorph.client.interfaces.IPlayerData;
@@ -211,5 +212,30 @@ public final class ClientMorphAPI {
     public static boolean isEmoting(UUID playerId) {
         if (handler == null) throw new NotImplementedException();
         return handler.isEmoting(playerId);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // First Person Property API
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Gets the current first-person property for a player on the client.
+     * <p>
+     * Returns the effective first-person property that is currently applied,
+     * including any server-side overrides.
+     *
+     * <pre>{@code
+     * ClientMorphAPI.getFirstPersonProperty(playerUUID).ifPresent(fp -> {
+     *     boolean showsModel = fp.showModel();
+     *     boolean showsCustomArms = fp.showCustomArms();
+     * });
+     * }</pre>
+     *
+     * @param playerId the UUID of the player
+     * @return an {@link Optional} containing the first-person property, or empty if the player has no model
+     */
+    public static Optional<IFirstPersonProperty> getFirstPersonProperty(UUID playerId) {
+        if (handler == null) throw new NotImplementedException();
+        return handler.getFirstPersonProperty(playerId);
     }
 }

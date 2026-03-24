@@ -293,6 +293,53 @@ public interface IMorphAPI<P> {
     void applyLayer(P player, String modelId, String layerId, boolean state, P... viewers);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // First Person Property API
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Updates the first-person rendering properties for a player.
+     * <p>
+     * This overrides the model's default first-person configuration for the given player.
+     * The override is per-player and does not affect the model definition itself.
+     * The update is sent only to the player themselves, since first-person properties
+     * only affect their own view.
+     *
+     * <pre>{@code
+     * IFirstPersonProperty property = IFirstPersonProperty.builder()
+     *     .showModel(true)
+     *     .modelOffset(0, 1.5, 0)
+     *     .showCustomArms(true)
+     *     .customArmsBothHands(true)
+     *     .customArmsRenderItems(true)
+     *     .showEquipment(false)
+     *     .build();
+     *
+     * api.updateFirstPersonProperty(player, property);
+     * }</pre>
+     *
+     * @param player   the player to update
+     * @param property the first-person property configuration
+     */
+    void updateFirstPersonProperty(P player, IFirstPersonProperty property);
+
+    /**
+     * Clears any per-player first-person property override, reverting to the model's default.
+     *
+     * @param player the player to clear the override for
+     */
+    void clearFirstPersonProperty(P player);
+
+    /**
+     * Gets the effective first-person property for a player.
+     * <p>
+     * Returns the per-player override if set, otherwise the model's default first-person property.
+     *
+     * @param player the player to query
+     * @return an {@link java.util.Optional} containing the first-person property, or empty if the player has no model
+     */
+    java.util.Optional<IFirstPersonProperty> getFirstPersonProperty(P player);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Player State API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

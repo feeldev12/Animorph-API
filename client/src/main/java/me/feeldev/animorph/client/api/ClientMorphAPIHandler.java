@@ -1,5 +1,6 @@
 package me.feeldev.animorph.client.api;
 
+import me.feeldev.animorph.api.IFirstPersonProperty;
 import me.feeldev.animorph.client.interfaces.ICustomMolangQuery;
 import me.feeldev.animorph.client.interfaces.IPlayerData;
 
@@ -28,4 +29,6 @@ public interface ClientMorphAPIHandler {
     Optional<String> getEmoteId(UUID playerId);
 
     boolean isEmoting(UUID playerId);
+
+    Optional<IFirstPersonProperty> getFirstPersonProperty(UUID playerId);
 }
