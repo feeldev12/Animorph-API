@@ -308,7 +308,7 @@ public interface IMorphAPI<P> {
      * IFirstPersonProperty property = IFirstPersonProperty.builder()
      *     .showModel(true)
      *     .modelOffset(0, 1.5, 0)
-     *     .showCustomArms(true)
+     *     .customArmsShow(true)
      *     .customArmsBothHands(true)
      *     .customArmsRenderItems(true)
      *     .showEquipment(false)

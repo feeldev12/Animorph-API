@@ -227,7 +227,7 @@ public final class ClientMorphAPI {
      * <pre>{@code
      * ClientMorphAPI.getFirstPersonProperty(playerUUID).ifPresent(fp -> {
      *     boolean showsModel = fp.showModel();
-     *     boolean showsCustomArms = fp.showCustomArms();
+     *     boolean showsCustomArms = fp.customArms().show();
      * });
      * }</pre>
      *

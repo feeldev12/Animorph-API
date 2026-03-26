@@ -14,7 +14,7 @@ package me.feeldev.animorph.api;
  * IFirstPersonProperty property = IFirstPersonProperty.builder()
  *     .showModel(true)
  *     .modelOffset(0, 1.5, 0)
- *     .showCustomArms(true)
+ *     .customArmsShow(true)
  *     .customArmsBothHands(true)
  *     .customArmsRenderItems(true)
  *     .showEquipment(false)
@@ -29,9 +29,6 @@ public interface IFirstPersonProperty {
     void setShowModel(boolean showModel);
 
     IModelOptions modelOptions();
-
-    boolean showCustomArms();
-    void setShowCustomArms(boolean showCustomArms);
 
     ICustomArms customArms();
 
@@ -88,7 +85,6 @@ public interface IFirstPersonProperty {
         private double modelOffsetX;
         private double modelOffsetY;
         private double modelOffsetZ;
-        private boolean showCustomArms;
         private boolean customArmsShow;
         private boolean customArmsBothHands;
         private boolean customArmsRenderItems;
@@ -103,11 +99,6 @@ public interface IFirstPersonProperty {
             this.modelOffsetX = x;
             this.modelOffsetY = y;
             this.modelOffsetZ = z;
-            return this;
-        }
-
-        public Builder showCustomArms(boolean showCustomArms) {
-            this.showCustomArms = showCustomArms;
             return this;
         }
 
@@ -134,7 +125,6 @@ public interface IFirstPersonProperty {
         public Builder from(IFirstPersonProperty source) {
             this.showModel = source.showModel();
             this.showEquipment = source.showEquipment();
-            this.showCustomArms = source.showCustomArms();
             if (source.modelOptions() != null) {
                 this.modelOffsetX = source.modelOptions().offsetX();
                 this.modelOffsetY = source.modelOptions().offsetY();
@@ -152,7 +142,6 @@ public interface IFirstPersonProperty {
             return new Default(
                     showModel,
                     new DefaultModelOptions(modelOffsetX, modelOffsetY, modelOffsetZ),
-                    showCustomArms,
                     new DefaultCustomArms(customArmsShow, customArmsBothHands, customArmsRenderItems),
                     showEquipment
             );
@@ -162,14 +151,12 @@ public interface IFirstPersonProperty {
     class Default implements IFirstPersonProperty {
         private boolean showModel;
         private final DefaultModelOptions modelOptions;
-        private boolean showCustomArms;
         private final DefaultCustomArms customArms;
         private boolean showEquipment;
 
-        public Default(boolean showModel, DefaultModelOptions modelOptions, boolean showCustomArms, DefaultCustomArms customArms, boolean showEquipment) {
+        public Default(boolean showModel, DefaultModelOptions modelOptions, DefaultCustomArms customArms, boolean showEquipment) {
             this.showModel = showModel;
             this.modelOptions = modelOptions;
-            this.showCustomArms = showCustomArms;
             this.customArms = customArms;
             this.showEquipment = showEquipment;
         }
@@ -177,8 +164,6 @@ public interface IFirstPersonProperty {
         @Override public boolean showModel() { return showModel; }
         @Override public void setShowModel(boolean showModel) { this.showModel = showModel; }
         @Override public IModelOptions modelOptions() { return modelOptions; }
-        @Override public boolean showCustomArms() { return showCustomArms; }
-        @Override public void setShowCustomArms(boolean showCustomArms) { this.showCustomArms = showCustomArms; }
         @Override public ICustomArms customArms() { return customArms; }
         @Override public boolean showEquipment() { return showEquipment; }
         @Override public void setShowEquipment(boolean showEquipment) { this.showEquipment = showEquipment; }
