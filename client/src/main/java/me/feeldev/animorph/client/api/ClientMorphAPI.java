@@ -280,4 +280,12 @@ public final class ClientMorphAPI {
         return handler.getPlayerLayerBone(playerId, layerId, boneName, firstPerson);
     }
 
+    /**
+     * Gets an immutable layer-bone transform snapshot for first/third person context.
+     */
+    public static Optional<BoneTransformSnapshot> getPlayerLayerBoneSnapshot(UUID playerId, String layerId, String boneName, boolean firstPerson) {
+        if (handler == null) throw new NotImplementedException();
+        return handler.getPlayerLayerBoneSnapshot(playerId, layerId, boneName, firstPerson);
+    }
+
 }

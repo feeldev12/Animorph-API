@@ -40,4 +40,6 @@ public interface ClientMorphAPIHandler {
     Optional<GeoBone> getPlayerLayerBone(UUID playerId, String layerId, String boneName);
 
     Optional<GeoBone> getPlayerLayerBone(UUID playerId, String layerId, String boneName, boolean firstPerson);
+
+    Optional<BoneTransformSnapshot> getPlayerLayerBoneSnapshot(UUID playerId, String layerId, String boneName, boolean firstPerson);
 }
