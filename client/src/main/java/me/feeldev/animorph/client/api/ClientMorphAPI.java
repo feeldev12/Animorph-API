@@ -4,6 +4,7 @@ import me.feeldev.animorph.api.IFirstPersonProperty;
 import me.feeldev.animorph.api.event.AnimorphEventBus;
 import me.feeldev.animorph.client.interfaces.ICustomMolangQuery;
 import me.feeldev.animorph.client.interfaces.IPlayerData;
+import software.bernie.geckolib.cache.object.GeoBone;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -237,5 +238,35 @@ public final class ClientMorphAPI {
     public static Optional<IFirstPersonProperty> getFirstPersonProperty(UUID playerId) {
         if (handler == null) throw new NotImplementedException();
         return handler.getFirstPersonProperty(playerId);
+    }
+
+    /**
+     * Gets a model bone from a player's current morph model.
+     * <p>
+     * This is useful for gameplay integrations that need to read a specific
+     * bone transform (for example, emitting particles or raycasts from an anchor bone).
+     *
+     * @param playerId the UUID of the player
+     * @param boneName the model bone name
+     * @return an {@link Optional} containing the bone if available
+     */
+    public static Optional<GeoBone> getPlayerModelBone(UUID playerId, String boneName) {
+        if (handler == null) throw new NotImplementedException();
+        return handler.getPlayerModelBone(playerId, boneName);
+    }
+
+    /**
+     * Gets a bone from a player's active model-layer.
+     * <p>
+     * Only model layers are supported. Texture-only layers do not contain bones.
+     *
+     * @param playerId the UUID of the player
+     * @param layerId  the layer ID
+     * @param boneName the layer model bone name
+     * @return an {@link Optional} containing the bone if available
+     */
+    public static Optional<GeoBone> getPlayerLayerBone(UUID playerId, String layerId, String boneName) {
+        if (handler == null) throw new NotImplementedException();
+        return handler.getPlayerLayerBone(playerId, layerId, boneName);
     }
 }

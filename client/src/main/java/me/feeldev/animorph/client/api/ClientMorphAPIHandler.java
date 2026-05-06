@@ -3,6 +3,7 @@ package me.feeldev.animorph.client.api;
 import me.feeldev.animorph.api.IFirstPersonProperty;
 import me.feeldev.animorph.client.interfaces.ICustomMolangQuery;
 import me.feeldev.animorph.client.interfaces.IPlayerData;
+import software.bernie.geckolib.cache.object.GeoBone;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -31,4 +32,8 @@ public interface ClientMorphAPIHandler {
     boolean isEmoting(UUID playerId);
 
     Optional<IFirstPersonProperty> getFirstPersonProperty(UUID playerId);
+
+    Optional<GeoBone> getPlayerModelBone(UUID playerId, String boneName);
+
+    Optional<GeoBone> getPlayerLayerBone(UUID playerId, String layerId, String boneName);
 }
