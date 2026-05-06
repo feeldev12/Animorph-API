@@ -35,5 +35,9 @@ public interface ClientMorphAPIHandler {
 
     Optional<GeoBone> getPlayerModelBone(UUID playerId, String boneName);
 
+    Optional<GeoBone> getPlayerModelBone(UUID playerId, String boneName, boolean firstPerson);
+
     Optional<GeoBone> getPlayerLayerBone(UUID playerId, String layerId, String boneName);
+
+    Optional<GeoBone> getPlayerLayerBone(UUID playerId, String layerId, String boneName, boolean firstPerson);
 }

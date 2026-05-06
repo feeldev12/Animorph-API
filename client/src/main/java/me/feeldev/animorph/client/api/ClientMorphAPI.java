@@ -255,6 +255,11 @@ public final class ClientMorphAPI {
         return handler.getPlayerModelBone(playerId, boneName);
     }
 
+    public static Optional<GeoBone> getPlayerModelBone(UUID playerId, String boneName, boolean firstPerson) {
+        if (handler == null) throw new NotImplementedException();
+        return handler.getPlayerModelBone(playerId, boneName, firstPerson);
+    }
+
     /**
      * Gets a bone from a player's active model-layer.
      * <p>
@@ -269,4 +274,10 @@ public final class ClientMorphAPI {
         if (handler == null) throw new NotImplementedException();
         return handler.getPlayerLayerBone(playerId, layerId, boneName);
     }
+
+    public static Optional<GeoBone> getPlayerLayerBone(UUID playerId, String layerId, String boneName, boolean firstPerson) {
+        if (handler == null) throw new NotImplementedException();
+        return handler.getPlayerLayerBone(playerId, layerId, boneName, firstPerson);
+    }
+
 }
