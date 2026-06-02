@@ -1,5 +1,7 @@
 package me.feeldev.animorph.api;
 
+import java.awt.*;
+
 /**
  * Represents a layer within a model.
  * <p>
@@ -32,4 +34,15 @@ public interface ILayer {
      * @return {@code true} if the layer renders in first person
      */
     boolean showFirstPerson();
+
+    /**
+     * ARGB packed color tint applied when rendering this layer.
+     * {@code 0xFFFFFFFF} means no tint (full white = render as-is).
+     * Can be overridden at runtime via {@link IMorphAPI#applyLayerColor}.
+     *
+     * @return ARGB packed int, defaults to {@code Color.WHITE.getRGB()}
+     */
+    default int color() {
+        return Color.WHITE.getRGB();
+    }
 }

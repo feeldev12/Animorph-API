@@ -292,6 +292,30 @@ public interface IMorphAPI<P> {
     @SuppressWarnings("unchecked")
     void applyLayer(P player, String modelId, String layerId, boolean state, P... viewers);
 
+    /**
+     * Overrides the ARGB color tint of an active layer on a player at runtime.
+     * <p>
+     * The layer must already be visible. The color takes precedence over the
+     * static {@code color} defined in the layer's config.
+     * Pass {@code null} to revert to the layer's configured color.
+     *
+     * <pre>{@code
+     * // Tint a layer red
+     * api.applyLayerColor(player, "armor_layer", Color.RED.getRGB());
+     *
+     * // Revert to the layer's configured color
+     * api.applyLayerColor(player, "armor_layer", null);
+     * }</pre>
+     *
+     * @param player  the player whose layer color to change
+     * @param layerId the ID of the layer to recolor
+     * @param color   ARGB packed int, or {@code null} to use the layer's config default
+     * @param viewers optional specific viewers to send the update to;
+     *                if empty, broadcasts to the player and all trackers
+     */
+    @SuppressWarnings("unchecked")
+    void applyLayerColor(P player, String layerId, Integer color, P... viewers);
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // First Person Property API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
