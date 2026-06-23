@@ -288,4 +288,36 @@ public final class ClientMorphAPI {
         return handler.getPlayerLayerBoneSnapshot(playerId, layerId, boneName, firstPerson);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Render Layer API
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Registers a render layer that runs for every active morph.
+     *
+     * <p>The layer is called once per render frame, after the main model geometry
+     * is drawn, within the same GeckoLib render pipeline as built-in layers.
+     *
+     * @param layer the render layer to register
+     */
+    public static void registerRenderLayer(AnimorphRenderLayer layer) {
+        if (handler == null) throw new NotImplementedException();
+        handler.registerRenderLayer(layer);
+    }
+
+    /**
+     * Registers a render layer scoped to a specific model ID.
+     *
+     * <p>The layer is only called when the player's active morph matches
+     * {@code modelId}. Use this to draw model-specific effects without
+     * polluting unrelated morphs.
+     *
+     * @param modelId the model ID this layer activates for (e.g. {@code "buh_cat"})
+     * @param layer   the render layer to register
+     */
+    public static void registerRenderLayer(String modelId, AnimorphRenderLayer layer) {
+        if (handler == null) throw new NotImplementedException();
+        handler.registerRenderLayer(modelId, layer);
+    }
+
 }

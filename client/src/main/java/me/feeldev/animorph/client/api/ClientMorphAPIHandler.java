@@ -42,4 +42,8 @@ public interface ClientMorphAPIHandler {
     Optional<GeoBone> getPlayerLayerBone(UUID playerId, String layerId, String boneName, boolean firstPerson);
 
     Optional<BoneTransformSnapshot> getPlayerLayerBoneSnapshot(UUID playerId, String layerId, String boneName, boolean firstPerson);
+
+    void registerRenderLayer(AnimorphRenderLayer layer);
+
+    void registerRenderLayer(String modelId, AnimorphRenderLayer layer);
 }

@@ -316,6 +316,128 @@ public interface IMorphAPI<P> {
     @SuppressWarnings("unchecked")
     void applyLayerColor(P player, String layerId, Integer color, P... viewers);
 
+    /**
+     * Overrides the nametag visibility for a player's current model at runtime.
+     * <p>
+     * When {@code hide} is {@code true}, the player's nametag is suppressed regardless
+     * of the static {@code hide_nametag} value defined in the model's YAML config.
+     * This override is cleared automatically when a new model is applied.
+     *
+     * <pre>{@code
+     * // Hide the nametag while the player is morphed
+     * api.setHideNametag(player, true);
+     *
+     * // Restore the model's configured nametag behavior
+     * api.setHideNametag(player, false);
+     * }</pre>
+     *
+     * @param player  the player whose nametag visibility to change
+     * @param hide    {@code true} to hide the nametag, {@code false} to show it
+     * @param viewers optional specific viewers to send the update to;
+     *                if empty, broadcasts to the player and all trackers
+     */
+    @SuppressWarnings("unchecked")
+    void setHideNametag(P player, boolean hide, P... viewers);
+
+    /**
+     * Overrides the display name shown for a player's current model at runtime.
+     * <p>
+     * When set, this name replaces the player's username in chat, the tab list,
+     * the 3D nametag, advancements, and death messages.
+     * Pass {@code null} to revert to the model's configured {@code display_name},
+     * or to the player's real username if none is configured.
+     * This override is cleared automatically when a new model is applied.
+     *
+     * <pre>{@code
+     * // Personalize the name per player
+     * api.setModelDisplayName(player, "Dragon " + player.getName());
+     *
+     * // Revert to model config
+     * api.setModelDisplayName(player, null);
+     * }</pre>
+     *
+     * @param player      the player whose display name to change
+     * @param displayName the name to show, or {@code null} to revert
+     * @param viewers     optional specific viewers; if empty, updates for all online players
+     */
+    @SuppressWarnings("unchecked")
+    void setModelDisplayName(P player, String displayName, P... viewers);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Resource Bundle API
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Registers a programmatically-built model into the live model registry.
+     * <p>
+     * The model becomes immediately available for assignment to players via {@link #updateModel}.
+     * Bundle-registered models survive {@code /animorph reload} automatically — you do NOT need
+     * to listen for reload events to re-register. Re-register only if you want to supply updated
+     * asset bytes after a reload.
+     *
+     * <p>If a model with the same ID is already loaded from disk, this method returns {@code false}
+     * and the disk model is left unchanged. To replace an existing bundle model, call
+     * {@link #unregisterModel(String)} first, then register again.
+     *
+     * <p>This method is safe to call from any thread, but prefer the server main thread to avoid
+     * visibility delays on concurrent reads.
+     *
+     * <pre>{@code
+     * IModelData fox = api.modelBuilder()
+     *     .modelId("fox")
+     *     .modelContent(geoJson)
+     *     .texture(pngBytes)
+     *     .texturePath("mymod:fox.png")
+     *     .build();
+     *
+     * boolean ok = api.registerModel(fox);
+     * if (!ok) {
+     *     logger.warn("A disk model already occupies the 'fox' ID — bundle model was rejected.");
+     * }
+     * }</pre>
+     *
+     * @param data the model data to register; must have a non-null, non-empty model ID
+     * @return {@code true} if the model was added successfully;
+     *         {@code false} if a disk-loaded model already occupies the same ID
+     */
+    boolean registerModel(IModelData data);
+
+    /**
+     * Removes a bundle-registered model from the live model registry.
+     * <p>
+     * If no model with the given ID exists, this is a no-op — no exception is thrown.
+     * The method also removes the model from the internal bundle registry, so it will NOT
+     * be re-applied after the next reload.
+     *
+     * <p><b>Note:</b> clients that are currently rendering the model will not receive an
+     * explicit removal packet. Their cached model data becomes stale until they reconnect
+     * or a new model is assigned. This is a known limitation — if you need immediate
+     * client-side eviction, call {@link #clearModel} on all affected players before unregistering.
+     *
+     * @param modelId the model ID to remove (e.g. {@code "fox"})
+     * @return {@code true} in all cases (the operation is always safe even if the ID was absent)
+     */
+    boolean unregisterModel(String modelId);
+
+    /**
+     * Returns a new, empty {@link IModelDataBuilder} for constructing a model programmatically.
+     * <p>
+     * Each call returns an independent builder instance. Builder instances are NOT thread-safe.
+     *
+     * <pre>{@code
+     * IModelData model = api.modelBuilder()
+     *     .modelId("dragon")
+     *     .modelContent(geoJson)
+     *     .animationContent(animJson)
+     *     .texture(pngBytes)
+     *     .texturePath("mymod:dragon.png")
+     *     .build();
+     * }</pre>
+     *
+     * @return a new {@link IModelDataBuilder} instance
+     */
+    IModelDataBuilder modelBuilder();
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // First Person Property API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
