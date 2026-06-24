@@ -29,7 +29,7 @@ import net.minecraft.item.ItemStack;
  * }</pre>
  *
  * <p>When the player is morphed, Animorph calls {@link #renderOnMorph} instead of
- * {@link net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer#render render}.
+ * {@code ArmorRenderer#render}.
  * If the registered renderer does not implement this interface, Animorph falls back
  * to the standard Fabric render call with a best-effort context model.
  */
