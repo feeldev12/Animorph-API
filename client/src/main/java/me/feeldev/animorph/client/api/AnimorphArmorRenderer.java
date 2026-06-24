@@ -1,11 +1,11 @@
 package me.feeldev.animorph.client.api;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.feeldev.animorph.client.interfaces.IPlayerData;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * Extension interface for Fabric's {@code ArmorRenderer} that enables correct rendering
@@ -48,7 +48,7 @@ public interface AnimorphArmorRenderer {
      * @param morphContext  the active morph data; use {@code morphContext.animorph$getModel()}
      *                      to access the GeckoLib model and sync bone transforms
      */
-    void renderOnMorph(MatrixStack matrices, VertexConsumerProvider bufferSource,
+    void renderOnMorph(PoseStack matrices, MultiBufferSource bufferSource,
                        ItemStack stack, LivingEntity entity, EquipmentSlot slot,
                        int light, IPlayerData morphContext);
 }

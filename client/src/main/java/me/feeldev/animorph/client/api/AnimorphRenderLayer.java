@@ -17,7 +17,7 @@ package me.feeldev.animorph.client.api;
  * // Scoped — only runs when the active model ID is "buh_cat"
  * ClientMorphAPI.registerRenderLayer("buh_cat", context -> {
  *     IPlayerData morph = context.animatable();
- *     MatrixStack matrices = context.matrices();
+ *     PoseStack poseStack = context.matrices();
  *     // render something specific to buh_cat
  * });
  * }</pre>

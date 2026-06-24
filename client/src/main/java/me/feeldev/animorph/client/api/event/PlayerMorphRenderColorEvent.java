@@ -1,7 +1,7 @@
 package me.feeldev.animorph.client.api.event;
 
 import me.feeldev.animorph.api.event.AnimorphEvent;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.player.AbstractClientPlayer;
 import software.bernie.geckolib.util.Color;
 
 /**
@@ -28,14 +28,14 @@ import software.bernie.geckolib.util.Color;
  * });
  * }</pre>
  */
-public class PlayerMorphRenderColorEvent extends AnimorphEvent<AbstractClientPlayerEntity> {
+public class PlayerMorphRenderColorEvent extends AnimorphEvent<AbstractClientPlayer> {
 
     private Color color;
     private final float partialTick;
     private final int packedLight;
 
     public PlayerMorphRenderColorEvent(
-            AbstractClientPlayerEntity player,
+            AbstractClientPlayer player,
             Color color,
             float partialTick,
             int packedLight
@@ -47,7 +47,7 @@ public class PlayerMorphRenderColorEvent extends AnimorphEvent<AbstractClientPla
     }
 
     /** The player whose morph color is being resolved. */
-    public AbstractClientPlayerEntity getPlayer() {
+    public AbstractClientPlayer getPlayer() {
         return super.getPlayer();
     }
 

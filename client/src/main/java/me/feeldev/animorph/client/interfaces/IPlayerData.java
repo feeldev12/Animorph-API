@@ -1,9 +1,9 @@
 package me.feeldev.animorph.client.interfaces;
 
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.network.PlayerListEntry;
 import me.feeldev.animorph.client.api.NotImplementedException;
-import net.minecraft.util.Arm;
+import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.world.entity.HumanoidArm;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 
 /**
@@ -28,23 +28,23 @@ public interface IPlayerData extends GeoAnimatable {
      *
      * @return the client player entity
      */
-    AbstractClientPlayerEntity animorph$getPlayer();
+    AbstractClientPlayer animorph$getPlayer();
 
     /**
      * Returns the player list entry for this player.
      *
      * @return the player list entry
      */
-    PlayerListEntry animorph$getPlayerListEntry();
+    PlayerInfo animorph$getPlayerListEntry();
 
     /**
      * Gets the hand swing progress for a specific arm.
      *
      * @param partialTick the partial tick for interpolation
-     * @param humanoidArm the arm to query ({@link Arm#LEFT} or {@link Arm#RIGHT})
+     * @param humanoidArm the arm to query ({@link HumanoidArm#LEFT} or {@link HumanoidArm#RIGHT})
      * @return the swing progress (0.0 to 1.0), or 0.0 if the arm is not swinging
      */
-    default float getSwingProgress(float partialTick, Arm humanoidArm) {
+    default float getSwingProgress(float partialTick, HumanoidArm humanoidArm) {
         throw new NotImplementedException();
     }
 

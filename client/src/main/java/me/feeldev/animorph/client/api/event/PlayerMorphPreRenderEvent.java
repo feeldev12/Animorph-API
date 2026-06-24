@@ -1,20 +1,20 @@
 package me.feeldev.animorph.client.api.event;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.feeldev.animorph.api.event.AnimorphEvent;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 
 /**
  * Fired on the client just before Animorph renders the morph model of a player.
  * <p>
- * At this point the {@link MatrixStack} has been positioned and rotated by Animorph
+ * At this point the {@link PoseStack} has been positioned and rotated by Animorph
  * (same transforms that GeckoLib's {@code preRender} applies), but
  * {@code actuallyRender} has not yet been called. Use this event to:
  * <ul>
- *   <li>Push additional MatrixStack transforms (scale, translate, rotate).</li>
+ *   <li>Push additional PoseStack transforms (scale, translate, rotate).</li>
  *   <li>Hide or unhide bones on the {@link BakedGeoModel} before the draw call.</li>
  *   <li>Render geometry that must appear <em>behind</em> the morph model.</li>
  * </ul>
@@ -23,34 +23,34 @@ import software.bernie.geckolib.cache.object.BakedGeoModel;
  * suppress the entire morph render for this frame. When cancelled, {@code actuallyRender},
  * all render layers, and {@link PlayerMorphPostRenderEvent} are all skipped.
  *
- * <p><b>Important:</b> if you push to the MatrixStack here you MUST pop the same
+ * <p><b>Important:</b> if you push to the PoseStack here you MUST pop the same
  * number of times before the method returns — failure to do so will corrupt the
  * render stack for all subsequent entities in the frame.
  *
  * <pre>{@code
  * ClientMorphAPI.getEventBus().register(PlayerMorphPreRenderEvent.class, event -> {
- *     event.getMatrices().push();
- *     event.getMatrices().scale(1.1f, 1.1f, 1.1f);
+ *     event.getPoseStack().pushPose();
+ *     event.getPoseStack().scale(1.1f, 1.1f, 1.1f);
  *     // render something, then:
- *     event.getMatrices().pop();
+ *     event.getPoseStack().popPose();
  * });
  * }</pre>
  */
-public class PlayerMorphPreRenderEvent extends AnimorphEvent<AbstractClientPlayerEntity> {
+public class PlayerMorphPreRenderEvent extends AnimorphEvent<AbstractClientPlayer> {
 
-    private final MatrixStack matrices;
+    private final PoseStack matrices;
     private final BakedGeoModel model;
-    private final VertexConsumerProvider bufferSource;
+    private final MultiBufferSource bufferSource;
     private final float partialTick;
     private final int packedLight;
     private final int packedOverlay;
     private boolean cancelled = false;
 
     public PlayerMorphPreRenderEvent(
-            AbstractClientPlayerEntity player,
-            MatrixStack matrices,
+            AbstractClientPlayer player,
+            PoseStack matrices,
             BakedGeoModel model,
-            VertexConsumerProvider bufferSource,
+            MultiBufferSource bufferSource,
             float partialTick,
             int packedLight,
             int packedOverlay
@@ -65,17 +65,17 @@ public class PlayerMorphPreRenderEvent extends AnimorphEvent<AbstractClientPlaye
     }
 
     /** The player whose morph is about to be rendered. */
-    public AbstractClientPlayerEntity getPlayer() {
+    public AbstractClientPlayer getPlayer() {
         return super.getPlayer();
     }
 
     /**
-     * The active MatrixStack for this render frame.
+     * The active PoseStack for this render frame.
      * <p>
      * Transforms applied here affect the entire morph render that follows.
-     * Always balance every {@code push()} with a {@code pop()}.
+     * Always balance every {@code pushPose()} with a {@code popPose()}.
      */
-    public MatrixStack getMatrices() {
+    public PoseStack getPoseStack() {
         return matrices;
     }
 
@@ -95,7 +95,7 @@ public class PlayerMorphPreRenderEvent extends AnimorphEvent<AbstractClientPlaye
      * Use this to render additional geometry before the morph model is drawn.
      * Retrieve a buffer with {@code bufferSource.getBuffer(renderLayer)}.
      */
-    public VertexConsumerProvider getBufferSource() {
+    public MultiBufferSource getBufferSource() {
         return bufferSource;
     }
 

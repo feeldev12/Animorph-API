@@ -1,9 +1,9 @@
 package me.feeldev.animorph.client.api.event;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.feeldev.animorph.api.event.AnimorphEvent;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 
 /**
@@ -12,7 +12,7 @@ import software.bernie.geckolib.cache.object.BakedGeoModel;
  * <p>
  * Use this event to render additional geometry on top of the morph, apply
  * post-render effects, or react to the render having completed. The
- * {@link MatrixStack} is still in the same coordinate frame as the model,
+ * {@link PoseStack} is still in the same coordinate frame as the model,
  * so transforms are relative to the player's feet.
  *
  * <p>This event is <b>not cancellable</b>.
@@ -24,20 +24,20 @@ import software.bernie.geckolib.cache.object.BakedGeoModel;
  * });
  * }</pre>
  */
-public class PlayerMorphPostRenderEvent extends AnimorphEvent<AbstractClientPlayerEntity> {
+public class PlayerMorphPostRenderEvent extends AnimorphEvent<AbstractClientPlayer> {
 
-    private final MatrixStack matrices;
+    private final PoseStack matrices;
     private final BakedGeoModel model;
-    private final VertexConsumerProvider bufferSource;
+    private final MultiBufferSource bufferSource;
     private final float partialTick;
     private final int packedLight;
     private final int packedOverlay;
 
     public PlayerMorphPostRenderEvent(
-            AbstractClientPlayerEntity player,
-            MatrixStack matrices,
+            AbstractClientPlayer player,
+            PoseStack matrices,
             BakedGeoModel model,
-            VertexConsumerProvider bufferSource,
+            MultiBufferSource bufferSource,
             float partialTick,
             int packedLight,
             int packedOverlay
@@ -52,17 +52,17 @@ public class PlayerMorphPostRenderEvent extends AnimorphEvent<AbstractClientPlay
     }
 
     /** The player whose morph was rendered. */
-    public AbstractClientPlayerEntity getPlayer() {
+    public AbstractClientPlayer getPlayer() {
         return super.getPlayer();
     }
 
     /**
-     * The active MatrixStack for this render frame.
+     * The active PoseStack for this render frame.
      * <p>
      * The stack is still at the model's coordinate frame (player feet).
-     * Always balance any {@code push()} calls with {@code pop()}.
+     * Always balance any {@code pushPose()} calls with {@code popPose()}.
      */
-    public MatrixStack getMatrices() {
+    public PoseStack getPoseStack() {
         return matrices;
     }
 
@@ -76,7 +76,7 @@ public class PlayerMorphPostRenderEvent extends AnimorphEvent<AbstractClientPlay
      * <p>
      * Use this to render additional geometry on top of the morph model.
      */
-    public VertexConsumerProvider getBufferSource() {
+    public MultiBufferSource getBufferSource() {
         return bufferSource;
     }
 
