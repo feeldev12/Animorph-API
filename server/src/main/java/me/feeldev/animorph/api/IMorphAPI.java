@@ -76,7 +76,11 @@ public interface IMorphAPI<P> {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Removes the custom model from a player, restoring the default appearance.
+     * Removes the custom model from a player.
+     * <p>
+     * If the player has a personal default model set via {@link #setDefaultModel}, the player
+     * is switched to that instead of going fully model-less — see {@link #setDefaultModel} for
+     * details. Otherwise this restores the default (vanilla) appearance.
      *
      * @param player  the player to clear the model from
      * @param viewers optional specific viewers to send the update to;
@@ -368,46 +372,45 @@ public interface IMorphAPI<P> {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Registers a programmatically-built model into the live model registry.
+     * Registers a model defined by your mod/plugin into the live model registry.
      * <p>
-     * The model becomes immediately available for assignment to players via {@link #updateModel}.
-     * Bundle-registered models survive {@code /animorph reload} automatically — you do NOT need
-     * to listen for reload events to re-register. Re-register only if you want to supply updated
-     * asset bytes after a reload.
+     * Extend {@link AnimorphModelDefinition}, override the {@code *ResourcePath()} methods to
+     * point at assets bundled in your own jar (or the {@code get*Content()}/{@code getTextureBytes()}
+     * methods directly for dynamically-generated content), then pass an instance here.
+     *
+     * <pre>{@code
+     * public class FoxModel extends AnimorphModelDefinition {
+     *     public String getModelId() { return "fox"; }
+     *     protected String modelResourcePath() { return "/assets/mymod/fox.geo.json"; }
+     *     protected String textureResourcePath() { return "/assets/mymod/fox.png"; }
+     * }
+     *
+     * boolean registered = api.registerModel(new FoxModel());
+     * }</pre>
+     *
+     * <p>The model becomes immediately available for assignment to players via {@link #updateModel}.
+     * Registered models survive {@code /animorph reload} automatically — you do NOT need
+     * to listen for reload events to re-register.
      *
      * <p>If a model with the same ID is already loaded from disk, this method returns {@code false}
-     * and the disk model is left unchanged. To replace an existing bundle model, call
+     * and the disk model is left unchanged. To replace an existing registration, call
      * {@link #unregisterModel(String)} first, then register again.
      *
      * <p>This method is safe to call from any thread, but prefer the server main thread to avoid
      * visibility delays on concurrent reads.
      *
-     * <pre>{@code
-     * IModelData fox = api.modelBuilder()
-     *     .modelId("fox")
-     *     .modelContent(geoJson)
-     *     .texture(pngBytes)
-     *     .texturePath("mymod:fox.png")
-     *     .build();
-     *
-     * boolean ok = api.registerModel(fox);
-     * if (!ok) {
-     *     logger.warn("A disk model already occupies the 'fox' ID — bundle model was rejected.");
-     * }
-     * }</pre>
-     *
-     * @param data the model data to register; must have a non-null, non-empty model ID
+     * @param definition the model definition to register; {@link AnimorphModelDefinition#getModelId()}
+     *                    must be non-null and non-empty
      * @return {@code true} if the model was added successfully;
      *         {@code false} if a disk-loaded model already occupies the same ID
      */
-    boolean registerModel(IModelData data);
+    boolean registerModel(AnimorphModelDefinition definition);
 
     /**
-     * Removes a bundle-registered model from the live model registry.
+     * Removes a registered model from the live model registry.
      * <p>
      * If no model with the given ID exists, this is a no-op — no exception is thrown.
-     * The method also removes the model from the internal bundle registry, so it will NOT
-     * be re-applied after the next reload.
+     * The model will NOT be re-applied after the next reload.
      *
      * <p><b>Note:</b> clients that are currently rendering the model will not receive an
      * explicit removal packet. Their cached model data becomes stale until they reconnect
@@ -420,23 +423,34 @@ public interface IMorphAPI<P> {
     boolean unregisterModel(String modelId);
 
     /**
-     * Returns a new, empty {@link IModelDataBuilder} for constructing a model programmatically.
+     * Sets a player's personal default model.
      * <p>
-     * Each call returns an independent builder instance. Builder instances are NOT thread-safe.
+     * Whenever this player's model would otherwise become {@code "empty"} — via {@link #clearModel}
+     * or by joining with no model already assigned — they're switched to this model instead. This
+     * does NOT immediately change the player's currently active model; it only sets the fallback
+     * for the next time they'd otherwise end up model-less. Use {@code "empty"} to clear the
+     * personal default (restoring normal empty/{@code model-on-join} behavior).
      *
      * <pre>{@code
-     * IModelData model = api.modelBuilder()
-     *     .modelId("dragon")
-     *     .modelContent(geoJson)
-     *     .animationContent(animJson)
-     *     .texture(pngBytes)
-     *     .texturePath("mymod:dragon.png")
-     *     .build();
+     * // "monja" becomes this player's personal default from now on
+     * api.setDefaultModel(player, "monja");
+     *
+     * // Later, clearing their model reverts to "monja" instead of going empty
+     * api.clearModel(player);
      * }</pre>
      *
-     * @return a new {@link IModelDataBuilder} instance
+     * @param player  the player whose personal default to set
+     * @param modelId the model ID to use as their default, or {@code "empty"} to clear it
      */
-    IModelDataBuilder modelBuilder();
+    void setDefaultModel(P player, String modelId);
+
+    /**
+     * Gets a player's personal default model ID.
+     *
+     * @param player the player to query
+     * @return the model ID, or {@code "empty"} if no personal default is set
+     */
+    String getDefaultModelId(P player);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // First Person Property API
