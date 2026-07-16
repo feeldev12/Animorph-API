@@ -1,9 +1,12 @@
 package me.feeldev.animorph.api;
 
+import me.feeldev.animorph.common.constants.HitboxPoseType;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Base class for defining an Animorph model bundled inside your own mod/plugin jar.
@@ -41,6 +44,12 @@ import java.util.List;
  * <h2>Layers</h2>
  * <p>Override {@link #getLayers()}; use the inherited {@link #readBytes(String)} to read
  * a layer's bundled texture from this same class's classpath.
+ *
+ * <h2>Properties</h2>
+ * <p>Overriding {@link #getAnimationControllers()}, {@link #isLayer()}, {@link #getRenderType()},
+ * {@link #isHideNametag()}, {@link #getFirstPersonProperty()}, {@link #getTextPlaceholders()},
+ * {@link #getHitboxContents()}, {@link #getEquipmentContents()} and {@link #getItemEquipmentContents()}
+ * is entirely optional — see each method's own javadoc.
  */
 public abstract class AnimorphModelDefinition {
 
@@ -124,6 +133,83 @@ public abstract class AnimorphModelDefinition {
     /** @return the layers attached to this model; empty if none. */
     public List<AnimorphLayerDefinition> getLayers() {
         return List.of();
+    }
+
+    // -----------------------------------------------------------------------
+    // Properties — mirror the yml model's properties: block. All defaults below
+    // reproduce exactly the same behavior as a yml model with no properties: section.
+    // -----------------------------------------------------------------------
+
+    /**
+     * @return native/content-based animation controllers active for this model. Empty by default
+     * (no controllers active — same as a yml model with no {@code properties.animation_controllers}).
+     */
+    public List<AnimorphControllerDefinition> getAnimationControllers() {
+        return List.of();
+    }
+
+    /**
+     * @return first-person animation controllers. Empty by default (same as a yml model with no
+     * {@code properties.fp_animation_controllers}).
+     */
+    public List<AnimorphControllerDefinition> getFpAnimationControllers() {
+        return List.of();
+    }
+
+    /** @return {@code true} if this model is a layer (doesn't replace the player model). Default {@code false}. */
+    public boolean isLayer() {
+        return false;
+    }
+
+    /** @return the Minecraft RenderType name. Default {@code "entity_cutout_no_cull"} (matches the yml default). */
+    public String getRenderType() {
+        return "entity_cutout_no_cull";
+    }
+
+    /** @return whether to hide the player's nametag while this model is active. Default {@code false}. */
+    public boolean isHideNametag() {
+        return false;
+    }
+
+    /**
+     * @return first-person rendering overrides for this model, or {@code null} to use engine
+     * defaults (same as a yml model with no {@code properties.first_person} section).
+     */
+    public IFirstPersonProperty getFirstPersonProperty() {
+        return null;
+    }
+
+    /** @return dynamic text placeholders (placeholder id -> initial value). Empty by default. */
+    public Map<String, String> getTextPlaceholders() {
+        return Map.of();
+    }
+
+    /**
+     * @return per-pose hitbox JSON content overrides (pose -> geometry JSON content), or empty to
+     * use only the default STANDING hitbox — same as a yml model with no {@code hitboxes:} block.
+     */
+    public Map<HitboxPoseType, String> getHitboxContents() {
+        return Map.of();
+    }
+
+    /**
+     * @return per-slot equipment geometry JSON content overrides (slot -> geometry JSON content).
+     * Only {@code HEAD}/{@code CHEST}/{@code LEGS}/{@code FEET}/{@code CAPE}/{@code ELYTRA} are
+     * meaningful here ({@code OTHER} is ignored). Empty by default — same as a yml model with no
+     * {@code equipment:} block; every slot still resolves to an empty-content placeholder, never null.
+     */
+    public Map<EquipmentType, String> getEquipmentContents() {
+        return Map.of();
+    }
+
+    /**
+     * @return per-item equipment overrides (full item ID, e.g. {@code "minecraft:netherite_helmet"},
+     * -> slot -> geometry JSON content). Item-specific overrides take priority over
+     * {@link #getEquipmentContents()}'s slot defaults. Empty by default — same as a yml model with no
+     * {@code equipment.items:} block.
+     */
+    public Map<String, Map<EquipmentType, String>> getItemEquipmentContents() {
+        return Map.of();
     }
 
     // -----------------------------------------------------------------------

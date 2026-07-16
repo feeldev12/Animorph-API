@@ -1,6 +1,7 @@
 package me.feeldev.animorph.api;
 
 import me.feeldev.animorph.api.event.AnimorphEventBus;
+import me.feeldev.animorph.common.models.Hitboxes;
 
 import java.util.Map;
 import java.util.Optional;
@@ -498,6 +499,51 @@ public interface IMorphAPI<P> {
      * @return an {@link java.util.Optional} containing the first-person property, or empty if the player has no model
      */
     java.util.Optional<IFirstPersonProperty> getFirstPersonProperty(P player);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Hitbox API
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Overrides the hitbox for a player's current model at runtime.
+     * <p>
+     * Unlike most per-player overrides in this API, this affects real server-side collision —
+     * {@code Player#getDefaultDimensions} reads from this state, not just cosmetics. The override
+     * is per-player and does not affect the model definition itself. It's sent only to the player
+     * themselves, since their hitbox affects their own movement/collision prediction client-side.
+     * This override is cleared automatically when a new model is applied.
+     *
+     * <pre>{@code
+     * Hitboxes hitboxes = new Hitboxes();
+     * hitboxes.addHitbox(HitboxPoseType.STANDING, new ModelHitbox(
+     *     new ModelHitbox.Vector3(-0.3, 0, -0.3), new ModelHitbox.Vector2(0.6f, 1.8f), 1.62f
+     * ));
+     *
+     * api.updateHitboxes(player, hitboxes);
+     * }</pre>
+     *
+     * @param player   the player whose hitbox to change
+     * @param hitboxes the hitbox configuration, keyed by pose
+     */
+    void updateHitboxes(P player, Hitboxes hitboxes);
+
+    /**
+     * Clears any per-player hitbox override, reverting to the model's configured hitbox
+     * (or vanilla dimensions if the model has none).
+     *
+     * @param player the player to clear the override for
+     */
+    void clearHitboxes(P player);
+
+    /**
+     * Gets the effective hitbox for a player.
+     * <p>
+     * Returns the per-player override if set, otherwise the model's default hitbox.
+     *
+     * @param player the player to query
+     * @return an {@link Optional} containing the hitboxes, or empty if the player has no model
+     */
+    Optional<Hitboxes> getHitboxes(P player);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Player State API

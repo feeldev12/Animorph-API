@@ -1,6 +1,7 @@
 package me.feeldev.animorph.client.api;
 
 import me.feeldev.animorph.client.interfaces.IPlayerData;
+import me.feeldev.animorph.client.models.CustomRawAnimation;
 import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.AnimationState;
 
@@ -38,6 +39,9 @@ import software.bernie.geckolib.animation.AnimationState;
 public abstract class AnimorphController {
     protected final String controllerName;
     protected final int transitionTime;
+    protected final boolean override;
+    protected final String linkedControllerId;
+    protected final int variantRerollTicks;
 
     /**
      * Creates a new animation controller.
@@ -46,8 +50,65 @@ public abstract class AnimorphController {
      * @param transitionTime the transition time in ticks when switching animations (0 = instant)
      */
     public AnimorphController(String controllerName, int transitionTime) {
+        this(controllerName, transitionTime, false, null, -1);
+    }
+
+    /**
+     * Creates a new animation controller.
+     *
+     * @param controllerName the unique name for this controller (referenced by models)
+     * @param transitionTime the transition time in ticks when switching animations (0 = instant)
+     * @param override       if {@code true}, this controller's bones win over every other
+     *                        (non-override) controller touching the same bones, instead of
+     *                        stacking additively on top of them (e.g. a weapon controller that
+     *                        shouldn't blend with the walk/run controller on the arms)
+     */
+    public AnimorphController(String controllerName, int transitionTime, boolean override) {
+        this(controllerName, transitionTime, override, null, -1);
+    }
+
+    /**
+     * Creates a new animation controller.
+     *
+     * @param controllerName     the unique name for this controller (referenced by models)
+     * @param transitionTime     the transition time in ticks when switching animations (0 = instant)
+     * @param override           if {@code true}, this controller's bones win over every other
+     *                           (non-override) controller touching the same bones, instead of
+     *                           stacking additively on top of them
+     * @param linkedControllerId the id of the corresponding controller on the player's other
+     *                           animatable (a 3rd-person controller links to a
+     *                           {@code fp_animation_controllers} id, and vice versa). While this
+     *                           controller is actively playing an animation, its elapsed tick is
+     *                           continuously synced to the linked controller so that switching
+     *                           perspective mid-animation resumes instead of restarting from 0.
+     *                           Pass {@code null} for no link.
+     */
+    public AnimorphController(String controllerName, int transitionTime, boolean override, String linkedControllerId) {
+        this(controllerName, transitionTime, override, linkedControllerId, -1);
+    }
+
+    /**
+     * Creates a new animation controller.
+     *
+     * @param controllerName     the unique name for this controller (referenced by models)
+     * @param transitionTime     the transition time in ticks when switching animations (0 = instant)
+     * @param override           if {@code true}, this controller's bones win over every other
+     *                           (non-override) controller touching the same bones, instead of
+     *                           stacking additively on top of them
+     * @param linkedControllerId the id of the corresponding controller on the player's other
+     *                           animatable, or {@code null} for no link (see the 4-arg constructor)
+     * @param variantRerollTicks how often (in ticks) to reroll animation variants while
+     *                           continuously staying in the same requested state, on top of the
+     *                           always-on reroll on state entry — see {@code
+     *                           IAnimationController#animorph$resolveVariant}. {@code <= 0}
+     *                           disables the periodic reroll (variants only picked on state entry).
+     */
+    public AnimorphController(String controllerName, int transitionTime, boolean override, String linkedControllerId, int variantRerollTicks) {
         this.controllerName = controllerName;
         this.transitionTime = transitionTime;
+        this.override = override;
+        this.linkedControllerId = linkedControllerId;
+        this.variantRerollTicks = variantRerollTicks;
     }
 
     /**
@@ -110,5 +171,54 @@ public abstract class AnimorphController {
      */
     public float getTransitionTime() {
         return transitionTime;
+    }
+
+    /**
+     * Returns whether this controller overrides other controllers on the bones it animates.
+     *
+     * @return {@code true} if this controller's bones win over other controllers instead of blending with them
+     */
+    public boolean isOverride() {
+        return override;
+    }
+
+    /**
+     * Returns the id of the linked controller (on the player's other animatable), if any.
+     *
+     * @return the linked controller id, or {@code null} if this controller isn't linked
+     */
+    public String getLinkedControllerId() {
+        return linkedControllerId;
+    }
+
+    /**
+     * Returns how often (in ticks) this controller rerolls animation variants while continuously
+     * staying in the same state.
+     *
+     * @return the reroll interval in ticks, or a value {@code <= 0} if periodic reroll is disabled
+     */
+    public int getVariantRerollTicks() {
+        return variantRerollTicks;
+    }
+
+    /**
+     * Resolves an animation name to one of its numbered variants, if any exist (e.g. requesting
+     * {@code "gun.pistol.idle"} with {@code "gun.pistol.idle.2"} also present picks one of the
+     * two at random). Call this from {@link #createAnimationStateHandler(IPlayerData)} instead of
+     * building {@code RawAnimation.begin().thenPlay(name)} directly wherever you want variety —
+     * falls back to the name unchanged if no numbered variants exist, so it's always safe to call.
+     *
+     * <pre>{@code
+     * return animationState.setAndContinue(
+     *     resolveVariant(animationState, "gun.pistol.idle").getRawAnimation()
+     * );
+     * }</pre>
+     *
+     * @param animationState the current animation state (used to reach the per-player controller)
+     * @param baseAnimationName the animation name as you'd normally request it
+     * @return the resolved variant
+     */
+    protected CustomRawAnimation resolveVariant(AnimationState<IPlayerData> animationState, String baseAnimationName) {
+        return new CustomRawAnimation(baseAnimationName);
     }
 }
