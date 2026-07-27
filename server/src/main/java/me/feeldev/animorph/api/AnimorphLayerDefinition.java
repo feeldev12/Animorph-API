@@ -22,6 +22,7 @@ public final class AnimorphLayerDefinition {
     private List<String> hideBones = List.of();
     private int color = 0xFFFFFFFF;
     private String renderType = "";
+    private String group;
 
     private AnimorphLayerDefinition(String layerId, LayerType type) {
         this.layerId = layerId;
@@ -98,6 +99,16 @@ public final class AnimorphLayerDefinition {
         return this;
     }
 
+    /**
+     * Sets the exclusive group id — see {@link ILayer#group()}. Any other currently-visible
+     * layer on the same model sharing this same group gets hidden when this one is shown via
+     * {@code applyExclusiveLayer}. Defaults to {@code null} (no group).
+     */
+    public AnimorphLayerDefinition group(String group) {
+        this.group = group;
+        return this;
+    }
+
     String layerId() { return layerId; }
     LayerType type() { return type; }
     String modelId() { return modelId; }
@@ -108,4 +119,5 @@ public final class AnimorphLayerDefinition {
     List<String> hideBones() { return hideBones; }
     int color() { return color; }
     String renderType() { return renderType; }
+    String group() { return group; }
 }

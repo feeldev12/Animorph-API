@@ -1,5 +1,7 @@
 package me.feeldev.animorph.api;
 
+import me.feeldev.animorph.common.models.AnimationTuning;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +32,11 @@ public final class AnimorphControllerDefinition {
     private boolean override = false;
     private String linkedController = null;
     private int variantRerollTicks = -1;
-    private final Map<String, Integer> animationTransitions = new HashMap<>();
+    // Single map keyed by animation name, like the yml's own animation_transitions — bundles
+    // every per-animation knob (transition time, override, whatever's added later) instead of a
+    // separate parallel map per property. animationTransition()/animationOverride() below are two
+    // separate fluent setters for ergonomics, but both write into this same map.
+    private final Map<String, AnimationTuning> animationTuning = new HashMap<>();
 
     private AnimorphControllerDefinition(String id, boolean isId, String content) {
         this.id = id;
@@ -111,7 +117,25 @@ public final class AnimorphControllerDefinition {
      * @param ticks         the transition time in ticks for that animation
      */
     public AnimorphControllerDefinition animationTransition(String animationName, int ticks) {
-        this.animationTransitions.put(animationName, ticks);
+        AnimationTuning existing = animationTuning.get(animationName);
+        boolean override = existing != null && existing.override();
+        animationTuning.put(animationName, new AnimationTuning(ticks, override));
+        return this;
+    }
+
+    /**
+     * Marks a single named animation as override — it wins over other controllers' bones while
+     * this controller is playing it, even if {@link #override(boolean)} wasn't set for the whole
+     * controller. Can be called multiple times to add several entries, mirroring the yml's
+     * {@code animation_transitions} per-animation {@code override} field.
+     *
+     * @param animationName the animation name
+     * @param override      whether this specific animation should behave as override
+     */
+    public AnimorphControllerDefinition animationOverride(String animationName, boolean override) {
+        AnimationTuning existing = animationTuning.get(animationName);
+        int time = existing != null ? existing.transitionTime() : AnimationTuning.NO_TRANSITION;
+        animationTuning.put(animationName, new AnimationTuning(time, override));
         return this;
     }
 
@@ -122,5 +146,5 @@ public final class AnimorphControllerDefinition {
     boolean override() { return override; }
     String linkedController() { return linkedController; }
     int variantRerollTicks() { return variantRerollTicks; }
-    Map<String, Integer> animationTransitions() { return animationTransitions; }
+    Map<String, AnimationTuning> animationTuning() { return animationTuning; }
 }

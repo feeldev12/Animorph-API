@@ -298,6 +298,46 @@ public interface IMorphAPI<P> {
     void applyLayer(P player, String modelId, String layerId, boolean state, P... viewers);
 
     /**
+     * Shows {@code layerId} and, in the same call, hides every other currently-visible layer on
+     * the player's model that shares its exclusive group (see the yml's {@code layers.<id>.group}
+     * field, or {@link AnimorphLayerDefinition#group(String)} when registering programmatically).
+     * <p>
+     * If {@code layerId} has no group configured, this behaves exactly like
+     * {@code applyLayer(player, layerId, true)} — nothing else gets hidden.
+     *
+     * <pre>{@code
+     * // model.yml (both weapon layers tagged with the same group)
+     * // layers:
+     * //   pistol_layer: { type: model, model: pistol_layer_model, group: weapon_layer }
+     * //   rifle_layer:  { type: model, model: rifle_layer_model,  group: weapon_layer }
+     *
+     * api.applyExclusiveLayer(player, "rifle_layer");
+     * // -> shows rifle_layer, hides pistol_layer (or whatever else was on in "weapon_layer")
+     * }</pre>
+     *
+     * @param player  the player to modify
+     * @param layerId the ID of the layer to show
+     * @param viewers optional specific viewers to send the update to;
+     *                if empty, broadcasts to the player and all trackers
+     */
+    @SuppressWarnings("unchecked")
+    void applyExclusiveLayer(P player, String layerId, P... viewers);
+
+    /**
+     * Shows {@code layerId} and hides every OTHER currently-visible layer on the player's model,
+     * regardless of group — a "solo" version of {@link #applyExclusiveLayer} for models whose
+     * layers are all mutually exclusive by nature, without needing to tag them all with the same
+     * {@code group}.
+     *
+     * @param player  the player to modify
+     * @param layerId the ID of the layer to show
+     * @param viewers optional specific viewers to send the update to;
+     *                if empty, broadcasts to the player and all trackers
+     */
+    @SuppressWarnings("unchecked")
+    void applyOnlyLayer(P player, String layerId, P... viewers);
+
+    /**
      * Overrides the ARGB color tint of an active layer on a player at runtime.
      * <p>
      * The layer must already be visible. The color takes precedence over the

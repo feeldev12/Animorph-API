@@ -45,4 +45,17 @@ public interface ILayer {
     default int color() {
         return Color.WHITE.getRGB();
     }
+
+    /**
+     * Optional exclusive group id. When applying this layer via a group-aware API call (e.g.
+     * {@code applyExclusiveLayer}), any other currently-visible layer on the same model sharing
+     * this same non-null group gets hidden first — e.g. tag every weapon-model layer with the
+     * same group so only one is ever shown at once. {@code null} (the default) means this layer
+     * doesn't participate in any exclusive group.
+     *
+     * @return the exclusive group id, or {@code null} if none
+     */
+    default String group() {
+        return null;
+    }
 }
