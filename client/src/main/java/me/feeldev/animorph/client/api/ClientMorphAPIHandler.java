@@ -21,6 +21,8 @@ public interface ClientMorphAPIHandler {
 
     void registerMolangVariable(String name);
 
+    void addAnimationEvent(String animation, double tick, String event, boolean sendToServer);
+
     <T extends IPlayerData> void addMolangQuery(ICustomMolangQuery<T> query);
 
     Optional<String> getPlayerModelId(UUID playerId);

@@ -168,6 +168,31 @@ public final class ClientMorphAPI {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Animation Events API
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Adds an animation event from code, at a tick of an animation, without a keyframe in the animation file. It
+     * fires exactly like an Animorph action keyframe placed with the Blockbench plugin: listeners of
+     * {@link me.feeldev.animorph.client.api.event.ClientAnimationKeyframeEvent} receive it, and with
+     * {@code sendToServer} the local player's crossings are also forwarded to the server.
+     *
+     * <pre>{@code
+     * // "release" six ticks into kart.throw_forward, also sent to the server
+     * ClientMorphAPI.addAnimationEvent("kart.throw_forward", 6, "release", true);
+     * }</pre>
+     *
+     * @param animation    the animation name, as in the animation file
+     * @param tick         the animation tick (>= 0)
+     * @param event        the event name: lowercase letters, digits, {@code _ - .}, at most 64 characters
+     * @param sendToServer also forward the local player's crossings to the server
+     */
+    public static void addAnimationEvent(String animation, double tick, String event, boolean sendToServer) {
+        if (handler == null) throw new NotImplementedException();
+        handler.addAnimationEvent(animation, tick, event, sendToServer);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Player State API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
