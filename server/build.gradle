@@ -10,7 +10,8 @@ repositories {
     mavenCentral()
 }
 
-def targetJavaVersion = 21
+// 17 so the 1.20.1 side (Java 17) can compile against it too; the shells use nothing newer.
+def targetJavaVersion = 17
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
