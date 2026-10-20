@@ -6,10 +6,9 @@ package me.feeldev.animorph.api.event;
  * @param <P> the player type ({@code Player} on Bukkit, {@code ServerPlayerEntity} on Fabric)
  */
 public abstract class AnimorphEvent<P> {
-    private final P player;
 
     public AnimorphEvent(P player) {
-        this.player = player;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -18,6 +17,6 @@ public abstract class AnimorphEvent<P> {
      * @return the player
      */
     public P getPlayer() {
-        return player;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

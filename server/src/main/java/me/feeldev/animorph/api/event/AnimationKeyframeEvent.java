@@ -21,22 +21,23 @@ package me.feeldev.animorph.api.event;
  * @param <P> the player type
  */
 public class AnimationKeyframeEvent<P> extends AnimorphEvent<P> {
-    private final String animation;
-    private final String event;
 
     public AnimationKeyframeEvent(P player, String animation, String event) {
         super(player);
-        this.animation = animation;
-        this.event = event;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** The animation the client was playing, as named in the animation file. */
+    /**
+     * The animation the client was playing, as named in the animation file.
+     */
     public String getAnimation() {
-        return animation;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** The event name ({@code <event>} in {@code animorph:server:<event>}). */
+    /**
+     * The event name ({@code <event>} in {@code animorph:server:<event>}).
+     */
     public String getEvent() {
-        return event;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

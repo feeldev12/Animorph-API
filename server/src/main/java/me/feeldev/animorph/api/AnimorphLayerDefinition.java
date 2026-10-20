@@ -12,21 +12,8 @@ import java.util.List;
  */
 public final class AnimorphLayerDefinition {
 
-    private final String layerId;
-    private final LayerType type;
-    private String modelId;
-    private byte[] textureBytes;
-    private String textureAnimation;
-    private boolean defaultEnabled;
-    private boolean showFirstPerson;
-    private List<String> hideBones = List.of();
-    private int color = 0xFFFFFFFF;
-    private String renderType = "";
-    private String group;
-
     private AnimorphLayerDefinition(String layerId, LayerType type) {
-        this.layerId = layerId;
-        this.type = type;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -41,9 +28,7 @@ public final class AnimorphLayerDefinition {
      * @return a new layer definition
      */
     public static AnimorphLayerDefinition texture(String layerId, byte[] textureBytes) {
-        AnimorphLayerDefinition layer = new AnimorphLayerDefinition(layerId, LayerType.TEXTURE);
-        layer.textureBytes = textureBytes;
-        return layer;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -54,39 +39,42 @@ public final class AnimorphLayerDefinition {
      * @return a new layer definition
      */
     public static AnimorphLayerDefinition model(String layerId, String modelId) {
-        AnimorphLayerDefinition layer = new AnimorphLayerDefinition(layerId, LayerType.MODEL);
-        layer.modelId = modelId;
-        return layer;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Sets whether this layer is visible by default when the model is applied. Defaults to {@code false}. */
+    /**
+     * Sets whether this layer is visible by default when the model is applied. Defaults to {@code false}.
+     */
     public AnimorphLayerDefinition defaultEnabled(boolean enabled) {
-        this.defaultEnabled = enabled;
-        return this;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Sets whether this layer renders in first person. Defaults to {@code false}. */
+    /**
+     * Sets whether this layer renders in first person. Defaults to {@code false}.
+     */
     public AnimorphLayerDefinition showFirstPerson(boolean show) {
-        this.showFirstPerson = show;
-        return this;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Sets which base-model bones to hide while this layer is active. */
+    /**
+     * Sets which base-model bones to hide while this layer is active.
+     */
     public AnimorphLayerDefinition hideBones(List<String> boneIds) {
-        this.hideBones = boneIds != null ? boneIds : List.of();
-        return this;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Sets the ARGB tint color. Defaults to {@code 0xFFFFFFFF} (no tint). */
+    /**
+     * Sets the ARGB tint color. Defaults to {@code 0xFFFFFFFF} (no tint).
+     */
     public AnimorphLayerDefinition color(int argb) {
-        this.color = argb;
-        return this;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Sets the {@code .mcmeta} animation JSON for an animated texture layer. Texture layers only. */
+    /**
+     * Sets the {@code .mcmeta} animation JSON for an animated texture layer. Texture layers only.
+     */
     public AnimorphLayerDefinition textureAnimation(String mcmeta) {
-        this.textureAnimation = mcmeta;
-        return this;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -95,8 +83,7 @@ public final class AnimorphLayerDefinition {
      * disk-config default-handling for layers ({@code render_type} is optional per-layer).
      */
     public AnimorphLayerDefinition renderType(String renderType) {
-        this.renderType = renderType != null ? renderType : "";
-        return this;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -105,19 +92,50 @@ public final class AnimorphLayerDefinition {
      * {@code applyExclusiveLayer}. Defaults to {@code null} (no group).
      */
     public AnimorphLayerDefinition group(String group) {
-        this.group = group;
-        return this;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    String layerId() { return layerId; }
-    LayerType type() { return type; }
-    String modelId() { return modelId; }
-    byte[] textureBytes() { return textureBytes; }
-    String textureAnimation() { return textureAnimation; }
-    boolean defaultEnabled() { return defaultEnabled; }
-    boolean showFirstPerson() { return showFirstPerson; }
-    List<String> hideBones() { return hideBones; }
-    int color() { return color; }
-    String renderType() { return renderType; }
-    String group() { return group; }
+    String layerId() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    LayerType type() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    String modelId() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    byte[] textureBytes() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    String textureAnimation() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    boolean defaultEnabled() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    boolean showFirstPerson() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    List<String> hideBones() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    int color() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    String renderType() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    String group() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
 }

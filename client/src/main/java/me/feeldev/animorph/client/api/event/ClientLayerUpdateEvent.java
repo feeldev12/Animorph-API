@@ -2,7 +2,6 @@ package me.feeldev.animorph.client.api.event;
 
 import me.feeldev.animorph.api.event.AnimorphEvent;
 import me.feeldev.animorph.api.LayerType;
-
 import java.util.UUID;
 
 /**
@@ -12,15 +11,10 @@ import java.util.UUID;
  * Use it to react to layer changes (e.g. update custom overlays).
  */
 public class ClientLayerUpdateEvent extends AnimorphEvent<UUID> {
-    private final String layerId;
-    private final LayerType layerType;
-    private final boolean state;
 
     public ClientLayerUpdateEvent(UUID playerId, String layerId, LayerType layerType, boolean state) {
         super(playerId);
-        this.layerId = layerId;
-        this.layerType = layerType;
-        this.state = state;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -29,7 +23,7 @@ public class ClientLayerUpdateEvent extends AnimorphEvent<UUID> {
      * @return the player UUID
      */
     public UUID getPlayerId() {
-        return getPlayer();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -38,7 +32,7 @@ public class ClientLayerUpdateEvent extends AnimorphEvent<UUID> {
      * @return the layer ID
      */
     public String getLayerId() {
-        return layerId;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -47,7 +41,7 @@ public class ClientLayerUpdateEvent extends AnimorphEvent<UUID> {
      * @return the layer type
      */
     public LayerType getLayerType() {
-        return layerType;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -56,6 +50,6 @@ public class ClientLayerUpdateEvent extends AnimorphEvent<UUID> {
      * @return {@code true} if the layer is now visible
      */
     public boolean getState() {
-        return state;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

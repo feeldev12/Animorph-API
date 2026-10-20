@@ -2,7 +2,6 @@ package me.feeldev.animorph.api;
 
 import me.feeldev.animorph.api.event.AnimorphEventBus;
 import me.feeldev.animorph.common.models.Hitboxes;
-
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
@@ -44,7 +43,6 @@ public interface IMorphAPI<P> {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Text API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Updates a text placeholder value on a player's model.
      * <p>
@@ -76,7 +74,6 @@ public interface IMorphAPI<P> {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Model API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Removes the custom model from a player.
      * <p>
@@ -158,7 +155,6 @@ public interface IMorphAPI<P> {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Animation API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Gets a registered emote/animation by its ID.
      *
@@ -177,7 +173,6 @@ public interface IMorphAPI<P> {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Emote API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Stops any currently playing emote on a player (model and all layers).
      *
@@ -257,7 +252,6 @@ public interface IMorphAPI<P> {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Layer API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Re-sends all current layer states for a player.
      * <p>
@@ -365,7 +359,6 @@ public interface IMorphAPI<P> {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Resource Bundle API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Registers a model defined by your mod/plugin into the live model registry.
      * <p>
@@ -450,7 +443,6 @@ public interface IMorphAPI<P> {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // First Person Property API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Updates the first-person rendering properties for a player.
      * <p>
@@ -497,7 +489,6 @@ public interface IMorphAPI<P> {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Hitbox API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Overrides the hitbox for a player's current model at runtime.
      * <p>
@@ -542,7 +533,6 @@ public interface IMorphAPI<P> {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Player State API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Gets the model ID currently assigned to a player.
      *
@@ -672,11 +662,14 @@ public interface IMorphAPI<P> {
      */
     @SuppressWarnings("unchecked")
     default void setAnimationOverrides(P player, AnimationOverrides overrides, P... viewers) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** The player's current movement animation replacements; {@link AnimationOverrides#NONE} if none. */
+    /**
+     * The player's current movement animation replacements; {@link AnimationOverrides#NONE} if none.
+     */
     default AnimationOverrides getAnimationOverrides(P player) {
-        return AnimationOverrides.NONE;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -691,11 +684,14 @@ public interface IMorphAPI<P> {
      */
     @SuppressWarnings("unchecked")
     default void setAppearance(P player, PlayerAppearance appearance, P... viewers) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** The player's current appearance; {@link PlayerAppearance#NONE} if none. */
+    /**
+     * The player's current appearance; {@link PlayerAppearance#NONE} if none.
+     */
     default PlayerAppearance getAppearance(P player) {
-        return PlayerAppearance.NONE;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -707,5 +703,6 @@ public interface IMorphAPI<P> {
      */
     @SuppressWarnings("unchecked")
     default void prefetchAssets(Collection<String> refs, P... viewers) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

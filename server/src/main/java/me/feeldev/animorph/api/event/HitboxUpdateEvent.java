@@ -11,14 +11,10 @@ import me.feeldev.animorph.common.models.Hitboxes;
  * @param <P> the player type
  */
 public class HitboxUpdateEvent<P> extends AnimorphEvent<P> implements Cancellable {
-    private final Hitboxes hitboxes;
-    private final Hitboxes previousHitboxes;
-    private boolean cancelled;
 
     public HitboxUpdateEvent(P player, Hitboxes hitboxes, Hitboxes previousHitboxes) {
         super(player);
-        this.hitboxes = hitboxes;
-        this.previousHitboxes = previousHitboxes;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -27,7 +23,7 @@ public class HitboxUpdateEvent<P> extends AnimorphEvent<P> implements Cancellabl
      * @return the new hitboxes
      */
     public Hitboxes getHitboxes() {
-        return hitboxes;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -36,16 +32,16 @@ public class HitboxUpdateEvent<P> extends AnimorphEvent<P> implements Cancellabl
      * @return the previous hitboxes
      */
     public Hitboxes getPreviousHitboxes() {
-        return previousHitboxes;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     @Override
     public boolean isCancelled() {
-        return cancelled;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     @Override
     public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

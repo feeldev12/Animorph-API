@@ -14,9 +14,10 @@ package me.feeldev.animorph.api;
  * }</pre>
  */
 public final class AnimorphProvider {
-    private static IMorphAPI api;
 
-    private AnimorphProvider() {}
+    private AnimorphProvider() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
 
     /**
      * Returns the registered Animorph API instance.
@@ -27,10 +28,7 @@ public final class AnimorphProvider {
      */
     @SuppressWarnings("unchecked")
     public static <P> IMorphAPI<P> getApi() {
-        if (api == null) {
-            throw new IllegalStateException("Animorph API is not initialized. Is the Animorph plugin loaded?");
-        }
-        return api;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -40,7 +38,7 @@ public final class AnimorphProvider {
      * @param api the API implementation to register
      */
     public static <P> void register(IMorphAPI<P> api) {
-        AnimorphProvider.api = api;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -49,6 +47,6 @@ public final class AnimorphProvider {
      * @return {@code true} if the API has been registered and is ready to use
      */
     public static boolean isAvailable() {
-        return api != null;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

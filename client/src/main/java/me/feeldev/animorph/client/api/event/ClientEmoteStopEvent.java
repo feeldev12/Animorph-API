@@ -1,7 +1,6 @@
 package me.feeldev.animorph.client.api.event;
 
 import me.feeldev.animorph.api.event.AnimorphEvent;
-
 import java.util.Set;
 import java.util.UUID;
 
@@ -17,21 +16,20 @@ public class ClientEmoteStopEvent extends AnimorphEvent<UUID> {
      * The reason the emote stopped.
      */
     public enum Reason {
-        /** The server explicitly stopped the emote (clearEmote / "empty" message). */
+
+        /**
+         * The server explicitly stopped the emote (clearEmote / "empty" message).
+         */
         SERVER,
-        /** The animation finished playing naturally on the client. */
+        /**
+         * The animation finished playing naturally on the client.
+         */
         FINISHED
     }
 
-    private final String emoteId;
-    private final Set<String> layerIds;
-    private final Reason reason;
-
     public ClientEmoteStopEvent(UUID playerId, String emoteId, Set<String> layerIds, Reason reason) {
         super(playerId);
-        this.emoteId = emoteId;
-        this.layerIds = layerIds;
-        this.reason = reason;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -40,7 +38,7 @@ public class ClientEmoteStopEvent extends AnimorphEvent<UUID> {
      * @return the player UUID
      */
     public UUID getPlayerId() {
-        return getPlayer();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -49,7 +47,7 @@ public class ClientEmoteStopEvent extends AnimorphEvent<UUID> {
      * @return the emote ID
      */
     public String getEmoteId() {
-        return emoteId;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -58,7 +56,7 @@ public class ClientEmoteStopEvent extends AnimorphEvent<UUID> {
      * @return the layer IDs, or {@code null} if it was a model-level emote
      */
     public Set<String> getLayerIds() {
-        return layerIds;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -68,7 +66,7 @@ public class ClientEmoteStopEvent extends AnimorphEvent<UUID> {
      *         {@link Reason#FINISHED} if the animation ended naturally
      */
     public Reason getReason() {
-        return reason;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -77,6 +75,6 @@ public class ClientEmoteStopEvent extends AnimorphEvent<UUID> {
      * @return {@code true} if the emote was targeting specific layers
      */
     public boolean isLayerEmote() {
-        return layerIds != null && !layerIds.isEmpty();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

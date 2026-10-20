@@ -2,7 +2,6 @@ package me.feeldev.animorph.client.api.event;
 
 import me.feeldev.animorph.api.IFirstPersonProperty;
 import me.feeldev.animorph.api.event.AnimorphEvent;
-
 import java.util.UUID;
 
 /**
@@ -11,11 +10,10 @@ import java.util.UUID;
  * This event is not cancellable — the change has already been applied.
  */
 public class ClientFirstPersonPropertyUpdateEvent extends AnimorphEvent<UUID> {
-    private final IFirstPersonProperty property;
 
     public ClientFirstPersonPropertyUpdateEvent(UUID playerId, IFirstPersonProperty property) {
         super(playerId);
-        this.property = property;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -24,7 +22,7 @@ public class ClientFirstPersonPropertyUpdateEvent extends AnimorphEvent<UUID> {
      * @return the player UUID
      */
     public UUID getPlayerId() {
-        return getPlayer();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -33,6 +31,6 @@ public class ClientFirstPersonPropertyUpdateEvent extends AnimorphEvent<UUID> {
      * @return the updated first-person property
      */
     public IFirstPersonProperty getProperty() {
-        return property;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

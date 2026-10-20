@@ -10,14 +10,10 @@ import me.feeldev.animorph.api.IFirstPersonProperty;
  * @param <P> the player type
  */
 public class FirstPersonPropertyUpdateEvent<P> extends AnimorphEvent<P> implements Cancellable {
-    private final IFirstPersonProperty property;
-    private final IFirstPersonProperty previousProperty;
-    private boolean cancelled;
 
     public FirstPersonPropertyUpdateEvent(P player, IFirstPersonProperty property, IFirstPersonProperty previousProperty) {
         super(player);
-        this.property = property;
-        this.previousProperty = previousProperty;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -26,7 +22,7 @@ public class FirstPersonPropertyUpdateEvent<P> extends AnimorphEvent<P> implemen
      * @return the new property
      */
     public IFirstPersonProperty getProperty() {
-        return property;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -35,16 +31,16 @@ public class FirstPersonPropertyUpdateEvent<P> extends AnimorphEvent<P> implemen
      * @return the previous property, or {@code null} if no override was set
      */
     public IFirstPersonProperty getPreviousProperty() {
-        return previousProperty;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     @Override
     public boolean isCancelled() {
-        return cancelled;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     @Override
     public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

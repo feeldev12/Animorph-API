@@ -4,8 +4,9 @@ import me.feeldev.animorph.api.IFirstPersonProperty;
 import me.feeldev.animorph.api.event.AnimorphEventBus;
 import me.feeldev.animorph.client.interfaces.ICustomMolangQuery;
 import me.feeldev.animorph.client.interfaces.IPlayerData;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.cache.object.GeoBone;
-
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,10 +31,9 @@ import java.util.UUID;
  */
 public final class ClientMorphAPI {
 
-    private static ClientMorphAPIHandler handler;
-    private static final AnimorphEventBus eventBus = new AnimorphEventBus();
-
-    private ClientMorphAPI() {}
+    private ClientMorphAPI() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
 
     /**
      * Gets the client-side event bus for registering event listeners.
@@ -50,20 +50,16 @@ public final class ClientMorphAPI {
      * @return the client event bus instance
      */
     public static AnimorphEventBus getEventBus() {
-        return eventBus;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
-     * Registers the client API handler implementation. Called internally by the Animorph client mod on startup.
+     * Registers the internal handler. Called by Animorph client on initialization.
      *
-     * @param impl the handler implementation
-     * @throws IllegalStateException if the handler has already been registered
+     * @param handler the handler implementation
      */
-    public static void register(ClientMorphAPIHandler impl) {
-        if (handler != null) {
-            throw new IllegalStateException("ClientMorphAPI has already been registered.");
-        }
-        handler = impl;
+    public static void register(ClientMorphAPIHandler handler) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -72,13 +68,40 @@ public final class ClientMorphAPI {
      * @return {@code true} if the handler has been registered and is ready to use
      */
     public static boolean isAvailable() {
-        return handler != null;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Render Layer API
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Registers a custom render layer that fires for every morphed player.
+     * <p>
+     * The layer is invoked after all built-in Animorph layers (armor, items, cape, elytra)
+     * but before the frame is flushed. Use it to render additional geometry on top of the morph.
+     * For reacting to the render state without adding geometry, prefer subscribing to
+     * {@link me.feeldev.animorph.client.api.event.PlayerMorphPreRenderEvent} or
+     * {@link me.feeldev.animorph.client.api.event.PlayerMorphPostRenderEvent} via {@link #getEventBus()}.
+     *
+     * @param layer the render layer to register globally
+     */
+    public static void registerRenderLayer(AnimorphRenderLayer layer) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    /**
+     * Registers a custom render layer that fires only when a specific model is active.
+     *
+     * @param modelId the model ID to scope this layer to
+     * @param layer   the render layer to register
+     */
+    public static void registerRenderLayer(String modelId, AnimorphRenderLayer layer) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Controller API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Registers a custom animation controller.
      * <p>
@@ -104,8 +127,7 @@ public final class ClientMorphAPI {
      * @throws IllegalArgumentException if a controller with the same ID is already registered
      */
     public static void registerController(String id, AnimorphController controller) {
-        if (handler == null) throw new NotImplementedException();
-        handler.registerController(id, controller);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -115,14 +137,12 @@ public final class ClientMorphAPI {
      * @return {@code true} if a controller with that ID exists
      */
     public static boolean hasController(String id) {
-        if (handler == null) throw new NotImplementedException();
-        return handler.hasController(id);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Molang API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Registers a custom Molang variable that can be used in Blockbench animator controllers.
      * <p>
@@ -138,8 +158,7 @@ public final class ClientMorphAPI {
      * @param name the variable name (e.g. {@code "query.my_stamina"})
      */
     public static void registerMolangVariable(String name) {
-        if (handler == null) throw new NotImplementedException();
-        handler.registerMolangVariable(name);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -163,14 +182,12 @@ public final class ClientMorphAPI {
      * @param query the query to register
      */
     public static <T extends IPlayerData> void addMolangQuery(ICustomMolangQuery<T> query) {
-        if (handler == null) throw new NotImplementedException();
-        handler.addMolangQuery(query);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Animation Events API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Adds an animation event from code, at a tick of an animation, without a keyframe in the animation file. It
      * fires exactly like an Animorph action keyframe placed with the Blockbench plugin: listeners of
@@ -188,14 +205,12 @@ public final class ClientMorphAPI {
      * @param sendToServer also forward the local player's crossings to the server
      */
     public static void addAnimationEvent(String animation, double tick, String event, boolean sendToServer) {
-        if (handler == null) throw new NotImplementedException();
-        handler.addAnimationEvent(animation, tick, event, sendToServer);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Player State API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Gets the model ID currently applied to a player on the client.
      *
@@ -203,8 +218,7 @@ public final class ClientMorphAPI {
      * @return an {@link Optional} containing the model ID, or empty if the player has no model
      */
     public static Optional<String> getPlayerModelId(UUID playerId) {
-        if (handler == null) throw new NotImplementedException();
-        return handler.getPlayerModelId(playerId);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -214,8 +228,7 @@ public final class ClientMorphAPI {
      * @return {@code true} if the player has an active custom model
      */
     public static boolean hasModel(UUID playerId) {
-        if (handler == null) throw new NotImplementedException();
-        return handler.hasModel(playerId);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -225,8 +238,7 @@ public final class ClientMorphAPI {
      * @return an {@link Optional} containing the emote ID, or empty if no emote is playing
      */
     public static Optional<String> getEmoteId(UUID playerId) {
-        if (handler == null) throw new NotImplementedException();
-        return handler.getEmoteId(playerId);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -236,14 +248,12 @@ public final class ClientMorphAPI {
      * @return {@code true} if the player has an active emote
      */
     public static boolean isEmoting(UUID playerId) {
-        if (handler == null) throw new NotImplementedException();
-        return handler.isEmoting(playerId);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // First Person Property API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Gets the current first-person property for a player on the client.
      * <p>
@@ -261,8 +271,7 @@ public final class ClientMorphAPI {
      * @return an {@link Optional} containing the first-person property, or empty if the player has no model
      */
     public static Optional<IFirstPersonProperty> getFirstPersonProperty(UUID playerId) {
-        if (handler == null) throw new NotImplementedException();
-        return handler.getFirstPersonProperty(playerId);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -276,13 +285,11 @@ public final class ClientMorphAPI {
      * @return an {@link Optional} containing the bone if available
      */
     public static Optional<GeoBone> getPlayerModelBone(UUID playerId, String boneName) {
-        if (handler == null) throw new NotImplementedException();
-        return handler.getPlayerModelBone(playerId, boneName);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     public static Optional<GeoBone> getPlayerModelBone(UUID playerId, String boneName, boolean firstPerson) {
-        if (handler == null) throw new NotImplementedException();
-        return handler.getPlayerModelBone(playerId, boneName, firstPerson);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -296,53 +303,59 @@ public final class ClientMorphAPI {
      * @return an {@link Optional} containing the bone if available
      */
     public static Optional<GeoBone> getPlayerLayerBone(UUID playerId, String layerId, String boneName) {
-        if (handler == null) throw new NotImplementedException();
-        return handler.getPlayerLayerBone(playerId, layerId, boneName);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     public static Optional<GeoBone> getPlayerLayerBone(UUID playerId, String layerId, String boneName, boolean firstPerson) {
-        if (handler == null) throw new NotImplementedException();
-        return handler.getPlayerLayerBone(playerId, layerId, boneName, firstPerson);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
      * Gets an immutable layer-bone transform snapshot for first/third person context.
      */
     public static Optional<BoneTransformSnapshot> getPlayerLayerBoneSnapshot(UUID playerId, String layerId, String boneName, boolean firstPerson) {
-        if (handler == null) throw new NotImplementedException();
-        return handler.getPlayerLayerBoneSnapshot(playerId, layerId, boneName, firstPerson);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Render Layer API
+    // Ragdoll API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
-     * Registers a render layer that runs for every active morph.
+     * Triggers procedural ragdoll physics for a morphed player.
+     * <p>
+     * The impulse vector controls how the body reacts: its direction maps to
+     * the body tilt and its magnitude controls rotation intensity. Pass
+     * {@code Vec3.ZERO} or {@code null} for a neutral collapse with no
+     * directional bias (e.g. standing-still death).
+     * <p>
+     * Calling this while already ragdolled restarts the effect with the new impulse.
+     * Calling this on a player with no active morph is a no-op — the state is stored
+     * but never applied since {@code PlayerMorphModel.handleAnimations} won't run.
      *
-     * <p>The layer is called once per render frame, after the main model geometry
-     * is drawn, within the same GeckoLib render pipeline as built-in layers.
-     *
-     * @param layer the render layer to register
+     * @param playerId the UUID of the target player
+     * @param impulse  direction + magnitude of the triggering force, or {@code null}
      */
-    public static void registerRenderLayer(AnimorphRenderLayer layer) {
-        if (handler == null) throw new NotImplementedException();
-        handler.registerRenderLayer(layer);
+    public static void startRagdoll(UUID playerId, @Nullable Vec3 impulse) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
-     * Registers a render layer scoped to a specific model ID.
+     * Immediately cancels an active ragdoll, returning the model to its
+     * normal animation state on the next render frame.
      *
-     * <p>The layer is only called when the player's active morph matches
-     * {@code modelId}. Use this to draw model-specific effects without
-     * polluting unrelated morphs.
-     *
-     * @param modelId the model ID this layer activates for (e.g. {@code "buh_cat"})
-     * @param layer   the render layer to register
+     * @param playerId the UUID of the player to release
      */
-    public static void registerRenderLayer(String modelId, AnimorphRenderLayer layer) {
-        if (handler == null) throw new NotImplementedException();
-        handler.registerRenderLayer(modelId, layer);
+    public static void stopRagdoll(UUID playerId) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
+    /**
+     * Returns {@code true} if the player's morph is currently in ragdoll mode.
+     *
+     * @param playerId the UUID of the player to check
+     * @return {@code true} if a ragdoll is active and has not yet expired
+     */
+    public static boolean isRagdolled(UUID playerId) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
 }

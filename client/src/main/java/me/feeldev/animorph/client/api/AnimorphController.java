@@ -1,9 +1,11 @@
 package me.feeldev.animorph.client.api;
 
 import me.feeldev.animorph.client.interfaces.IPlayerData;
+import me.feeldev.animorph.client.interfaces.geo.IAnimationController;
 import me.feeldev.animorph.client.models.CustomRawAnimation;
 import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.PlayState;
 
 /**
  * Base class for creating custom animation controllers.
@@ -37,10 +39,15 @@ import software.bernie.geckolib.animation.AnimationState;
  * Register your controller with {@link ClientMorphAPI#registerController(String, AnimorphController)}.
  */
 public abstract class AnimorphController {
+
     protected final String controllerName;
+
     protected final int transitionTime;
+
     protected final boolean override;
+
     protected final String linkedControllerId;
+
     protected final int variantRerollTicks;
 
     /**
@@ -51,6 +58,7 @@ public abstract class AnimorphController {
      */
     public AnimorphController(String controllerName, int transitionTime) {
         this(controllerName, transitionTime, false, null, -1);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -65,6 +73,7 @@ public abstract class AnimorphController {
      */
     public AnimorphController(String controllerName, int transitionTime, boolean override) {
         this(controllerName, transitionTime, override, null, -1);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -85,6 +94,7 @@ public abstract class AnimorphController {
      */
     public AnimorphController(String controllerName, int transitionTime, boolean override, String linkedControllerId) {
         this(controllerName, transitionTime, override, linkedControllerId, -1);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -104,11 +114,7 @@ public abstract class AnimorphController {
      *                           disables the periodic reroll (variants only picked on state entry).
      */
     public AnimorphController(String controllerName, int transitionTime, boolean override, String linkedControllerId, int variantRerollTicks) {
-        this.controllerName = controllerName;
-        this.transitionTime = transitionTime;
-        this.override = override;
-        this.linkedControllerId = linkedControllerId;
-        this.variantRerollTicks = variantRerollTicks;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -121,7 +127,7 @@ public abstract class AnimorphController {
      * @return the GeckoLib animation controller
      */
     public AnimationController<IPlayerData> createAnimationController(IPlayerData entity) {
-        return new AnimationController<>(entity, controllerName, transitionTime, createAnimationStateHandler(entity));
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -130,8 +136,8 @@ public abstract class AnimorphController {
      * This is the main method to override. The handler is called every animation tick
      * and should return:
      * <ul>
-     *     <li>{@link software.bernie.geckolib.animation.PlayState#CONTINUE} - to keep the current animation playing</li>
-     *     <li>{@link software.bernie.geckolib.animation.PlayState#STOP} - to stop the animation</li>
+     *     <li>{@link PlayState#CONTINUE} - to keep the current animation playing</li>
+     *     <li>{@link PlayState#STOP} - to stop the animation</li>
      *     <li>{@code animationState.setAndContinue(animation)} - to play a specific animation</li>
      * </ul>
      *
@@ -139,7 +145,7 @@ public abstract class AnimorphController {
      * @return the animation state handler
      */
     protected AnimationController.AnimationStateHandler<IPlayerData> createAnimationStateHandler(IPlayerData entity) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -152,7 +158,7 @@ public abstract class AnimorphController {
      * @return {@code true} to interrupt and stop the animation
      */
     protected boolean interrupt(AnimationState<IPlayerData> animationState) {
-        return false;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -161,7 +167,7 @@ public abstract class AnimorphController {
      * @return the controller name
      */
     public String getControllerName() {
-        return controllerName;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -170,7 +176,7 @@ public abstract class AnimorphController {
      * @return the transition time
      */
     public float getTransitionTime() {
-        return transitionTime;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -179,7 +185,7 @@ public abstract class AnimorphController {
      * @return {@code true} if this controller's bones win over other controllers instead of blending with them
      */
     public boolean isOverride() {
-        return override;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -188,7 +194,7 @@ public abstract class AnimorphController {
      * @return the linked controller id, or {@code null} if this controller isn't linked
      */
     public String getLinkedControllerId() {
-        return linkedControllerId;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -198,7 +204,7 @@ public abstract class AnimorphController {
      * @return the reroll interval in ticks, or a value {@code <= 0} if periodic reroll is disabled
      */
     public int getVariantRerollTicks() {
-        return variantRerollTicks;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -218,7 +224,8 @@ public abstract class AnimorphController {
      * @param baseAnimationName the animation name as you'd normally request it
      * @return the resolved variant
      */
+    @SuppressWarnings("unchecked")
     protected CustomRawAnimation resolveVariant(AnimationState<IPlayerData> animationState, String baseAnimationName) {
-        return new CustomRawAnimation(baseAnimationName);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

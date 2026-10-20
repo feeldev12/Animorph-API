@@ -8,16 +8,10 @@ package me.feeldev.animorph.api.event;
  * @param <P> the player type
  */
 public class LayerUpdateEvent<P> extends AnimorphEvent<P> implements Cancellable {
-    private final String layerId;
-    private final boolean state;
-    private final boolean previousState;
-    private boolean cancelled;
 
     public LayerUpdateEvent(P player, String layerId, boolean state, boolean previousState) {
         super(player);
-        this.layerId = layerId;
-        this.state = state;
-        this.previousState = previousState;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -26,7 +20,7 @@ public class LayerUpdateEvent<P> extends AnimorphEvent<P> implements Cancellable
      * @return the layer ID
      */
     public String getLayerId() {
-        return layerId;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -35,7 +29,7 @@ public class LayerUpdateEvent<P> extends AnimorphEvent<P> implements Cancellable
      * @return {@code true} if showing, {@code false} if hiding
      */
     public boolean getState() {
-        return state;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -44,16 +38,16 @@ public class LayerUpdateEvent<P> extends AnimorphEvent<P> implements Cancellable
      * @return the previous state
      */
     public boolean getPreviousState() {
-        return previousState;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     @Override
     public boolean isCancelled() {
-        return cancelled;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     @Override
     public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

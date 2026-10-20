@@ -10,18 +10,10 @@ import java.util.Set;
  * @param <P> the player type
  */
 public class EmotePlayEvent<P> extends AnimorphEvent<P> implements Cancellable {
-    private final String emoteId;
-    private final String previousEmoteId;
-    private final Set<String> layerIds;
-    private final double startTick;
-    private boolean cancelled;
 
     public EmotePlayEvent(P player, String emoteId, String previousEmoteId, Set<String> layerIds, double startTick) {
         super(player);
-        this.emoteId = emoteId;
-        this.previousEmoteId = previousEmoteId;
-        this.layerIds = layerIds;
-        this.startTick = startTick;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -30,7 +22,7 @@ public class EmotePlayEvent<P> extends AnimorphEvent<P> implements Cancellable {
      * @return the emote ID
      */
     public String getEmoteId() {
-        return emoteId;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -39,7 +31,7 @@ public class EmotePlayEvent<P> extends AnimorphEvent<P> implements Cancellable {
      * @return the previous emote ID, or {@code "empty"} if none
      */
     public String getPreviousEmoteId() {
-        return previousEmoteId;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -48,7 +40,7 @@ public class EmotePlayEvent<P> extends AnimorphEvent<P> implements Cancellable {
      * @return the layer IDs, or {@code null} if targeting the model level
      */
     public Set<String> getLayerIds() {
-        return layerIds;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -57,7 +49,7 @@ public class EmotePlayEvent<P> extends AnimorphEvent<P> implements Cancellable {
      * @return the start tick, or {@code -1} if starting from the beginning
      */
     public double getStartTick() {
-        return startTick;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -66,16 +58,16 @@ public class EmotePlayEvent<P> extends AnimorphEvent<P> implements Cancellable {
      * @return {@code true} if targeting specific layers
      */
     public boolean isLayerEmote() {
-        return layerIds != null && !layerIds.isEmpty();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     @Override
     public boolean isCancelled() {
-        return cancelled;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     @Override
     public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

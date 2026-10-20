@@ -1,6 +1,6 @@
 package me.feeldev.animorph.client.interfaces;
 
-import me.feeldev.animorph.client.api.NotImplementedException;
+import me.feeldev.animorph.client.interfaces.geo.IAnimatableInstanceCache;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.world.entity.HumanoidArm;
@@ -45,8 +45,10 @@ public interface IPlayerData extends GeoAnimatable {
      * @return the swing progress (0.0 to 1.0), or 0.0 if the arm is not swinging
      */
     default float getSwingProgress(float partialTick, HumanoidArm humanoidArm) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
+
+    IAnimatableInstanceCache animorph$getExtraAnimatable();
 
     /**
      * Gets the limb movement speed, clamped to [0.0, 1.0].
@@ -57,6 +59,6 @@ public interface IPlayerData extends GeoAnimatable {
      * @return the limb speed (0.0 = standing, approaching 1.0 = sprinting)
      */
     default float getLimbSpeed(float speed) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

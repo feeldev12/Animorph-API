@@ -1,8 +1,6 @@
 package me.feeldev.animorph.api;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * How a player looks on their own model beyond the model itself: their skin, skin model (slim or
@@ -23,22 +21,21 @@ import java.util.Objects;
  */
 public record PlayerAppearance(String modelId, String skinRef, Boolean slim, String capeRef, List<AttachedLayer> layers) {
 
-    public static final PlayerAppearance NONE = new PlayerAppearance(null, null, null, null, List.of());
+    public static final PlayerAppearance NONE = null;
 
     public PlayerAppearance {
-        layers = List.copyOf(Objects.requireNonNull(layers, "layers"));
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     public boolean isEmpty() {
-        return skinRef == null && slim == null && capeRef == null && layers.isEmpty();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Every texture ref, e.g. to prefetch them before the player shows up. */
+    /**
+     * Every texture ref, e.g. to prefetch them before the player shows up.
+     */
     public List<String> textureRefs() {
-        List<String> refs = new ArrayList<>(2);
-        if (skinRef != null) refs.add(skinRef);
-        if (capeRef != null) refs.add(capeRef);
-        return refs;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -50,9 +47,9 @@ public record PlayerAppearance(String modelId, String skinRef, Boolean slim, Str
      * @param showFirstPerson whether it's drawn in first person too
      */
     public record AttachedLayer(String modelId, List<String> hideBones, boolean showFirstPerson) {
+
         public AttachedLayer {
-            Objects.requireNonNull(modelId, "modelId");
-            hideBones = List.copyOf(Objects.requireNonNull(hideBones, "hideBones"));
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
         }
     }
 }

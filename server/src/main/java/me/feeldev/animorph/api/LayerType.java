@@ -4,11 +4,11 @@ package me.feeldev.animorph.api;
  * Defines the type of a model layer.
  */
 public enum LayerType {
+
     /**
      * A model layer that adds additional geometry on top of the base model.
      */
     MODEL,
-
     /**
      * A texture layer that applies a texture overlay to the base model.
      */
@@ -21,10 +21,7 @@ public enum LayerType {
      * @return the matching LayerType, or {@code null} if not found
      */
     public static LayerType getByName(String name) {
-        for (LayerType layerType : values()) {
-            if (layerType.name().equalsIgnoreCase(name)) return layerType;
-        }
-        return null;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -35,6 +32,6 @@ public enum LayerType {
      * @throws ArrayIndexOutOfBoundsException if the ordinal is out of range
      */
     public static LayerType getByOrdinal(int ordinal) {
-        return values()[ordinal];
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

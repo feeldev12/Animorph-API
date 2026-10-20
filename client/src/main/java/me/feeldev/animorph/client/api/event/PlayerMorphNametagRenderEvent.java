@@ -35,31 +35,16 @@ import net.minecraft.network.chat.Component;
  */
 public class PlayerMorphNametagRenderEvent extends AnimorphEvent<AbstractClientPlayer> {
 
-    private final PoseStack poseStack;
-    private final MultiBufferSource bufferSource;
-    private final int packedLight;
-    private final float partialTick;
-    private Component label;
-
-    public PlayerMorphNametagRenderEvent(
-            AbstractClientPlayer player,
-            PoseStack poseStack,
-            MultiBufferSource bufferSource,
-            int packedLight,
-            float partialTick,
-            Component label
-    ) {
+    public PlayerMorphNametagRenderEvent(AbstractClientPlayer player, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, float partialTick, Component label) {
         super(player);
-        this.poseStack = poseStack;
-        this.bufferSource = bufferSource;
-        this.packedLight = packedLight;
-        this.partialTick = partialTick;
-        this.label = label;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** The player whose nametag is about to be rendered. */
+    /**
+     * The player whose nametag is about to be rendered.
+     */
     public AbstractClientPlayer getPlayer() {
-        return super.getPlayer();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -68,7 +53,7 @@ public class PlayerMorphNametagRenderEvent extends AnimorphEvent<AbstractClientP
      * Always balance every {@code pushPose()} with a {@code popPose()}.
      */
     public PoseStack getPoseStack() {
-        return poseStack;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -78,22 +63,28 @@ public class PlayerMorphNametagRenderEvent extends AnimorphEvent<AbstractClientP
      * buffer with {@code bufferSource.getBuffer(renderType)}.
      */
     public MultiBufferSource getBufferSource() {
-        return bufferSource;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Packed block + sky light for this render position. */
+    /**
+     * Packed block + sky light for this render position.
+     */
     public int getPackedLight() {
-        return packedLight;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Partial render tick, in {@code [0, 1)}. */
+    /**
+     * Partial render tick, in {@code [0, 1)}.
+     */
     public float getPartialTick() {
-        return partialTick;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** The label text about to be drawn. Already resolved (team prefix/suffix, etc). */
+    /**
+     * The label text about to be drawn. Already resolved (team prefix/suffix, etc).
+     */
     public Component getLabel() {
-        return label;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -102,7 +93,6 @@ public class PlayerMorphNametagRenderEvent extends AnimorphEvent<AbstractClientP
      * @param label the new label; must not be {@code null}
      */
     public void setLabel(Component label) {
-        if (label == null) throw new IllegalArgumentException("label must not be null");
-        this.label = label;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

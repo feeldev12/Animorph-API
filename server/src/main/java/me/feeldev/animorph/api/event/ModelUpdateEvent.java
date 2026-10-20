@@ -8,14 +8,10 @@ package me.feeldev.animorph.api.event;
  * @param <P> the player type
  */
 public class ModelUpdateEvent<P> extends AnimorphEvent<P> implements Cancellable {
-    private final String modelId;
-    private final String previousModelId;
-    private boolean cancelled;
 
     public ModelUpdateEvent(P player, String modelId, String previousModelId) {
         super(player);
-        this.modelId = modelId;
-        this.previousModelId = previousModelId;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -24,7 +20,7 @@ public class ModelUpdateEvent<P> extends AnimorphEvent<P> implements Cancellable
      * @return the new model ID, or {@code "empty"} if clearing
      */
     public String getModelId() {
-        return modelId;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -33,7 +29,7 @@ public class ModelUpdateEvent<P> extends AnimorphEvent<P> implements Cancellable
      * @return the previous model ID, or {@code "empty"} if none
      */
     public String getPreviousModelId() {
-        return previousModelId;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -42,16 +38,16 @@ public class ModelUpdateEvent<P> extends AnimorphEvent<P> implements Cancellable
      * @return {@code true} if the model is being removed
      */
     public boolean isClearing() {
-        return "empty".equals(modelId);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     @Override
     public boolean isCancelled() {
-        return cancelled;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     @Override
     public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }
