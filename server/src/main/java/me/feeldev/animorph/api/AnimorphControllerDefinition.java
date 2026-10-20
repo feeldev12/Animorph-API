@@ -1,6 +1,7 @@
 package me.feeldev.animorph.api;
 
 import me.feeldev.animorph.common.models.AnimationTuning;
+import me.feeldev.animorph.common.models.VariantMode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -118,16 +119,19 @@ public final class AnimorphControllerDefinition {
      */
     public AnimorphControllerDefinition animationTransition(String animationName, int ticks) {
         AnimationTuning existing = animationTuning.get(animationName);
-        boolean override = existing != null && existing.override();
-        animationTuning.put(animationName, new AnimationTuning(ticks, override));
+        Boolean override = existing != null ? existing.override() : null;
+        VariantMode mode = existing != null ? existing.mode() : VariantMode.RANDOM;
+        animationTuning.put(animationName, new AnimationTuning(ticks, override, mode));
         return this;
     }
 
     /**
-     * Marks a single named animation as override — it wins over other controllers' bones while
-     * this controller is playing it, even if {@link #override(boolean)} wasn't set for the whole
-     * controller. Can be called multiple times to add several entries, mirroring the yml's
-     * {@code animation_transitions} per-animation {@code override} field.
+     * Marks a single named animation as override (or explicitly not) — takes priority over
+     * {@link #override(boolean)}'s whole-controller default for this one animation, in either
+     * direction: {@code true} wins over other controllers' bones even if the controller itself
+     * isn't override, and {@code false} blends normally even if the controller itself is. Can be
+     * called multiple times to add several entries, mirroring the yml's
+     * {@code animation_transitions:} per-animation {@code override} field.
      *
      * @param animationName the animation name
      * @param override      whether this specific animation should behave as override
@@ -135,7 +139,25 @@ public final class AnimorphControllerDefinition {
     public AnimorphControllerDefinition animationOverride(String animationName, boolean override) {
         AnimationTuning existing = animationTuning.get(animationName);
         int time = existing != null ? existing.transitionTime() : AnimationTuning.NO_TRANSITION;
-        animationTuning.put(animationName, new AnimationTuning(time, override));
+        VariantMode mode = existing != null ? existing.mode() : VariantMode.RANDOM;
+        animationTuning.put(animationName, new AnimationTuning(time, override, mode));
+        return this;
+    }
+
+    /**
+     * Sets how a single named animation picks among its numbered variants, overriding the
+     * default {@link VariantMode#RANDOM} pick. Can be called multiple times to add several
+     * entries, mirroring the yml's {@code animation_transitions:} per-animation {@code mode}
+     * field.
+     *
+     * @param animationName the animation name
+     * @param mode          the variant selection strategy for that animation
+     */
+    public AnimorphControllerDefinition animationVariantMode(String animationName, VariantMode mode) {
+        AnimationTuning existing = animationTuning.get(animationName);
+        int time = existing != null ? existing.transitionTime() : AnimationTuning.NO_TRANSITION;
+        Boolean override = existing != null ? existing.override() : null;
+        animationTuning.put(animationName, new AnimationTuning(time, override, mode));
         return this;
     }
 

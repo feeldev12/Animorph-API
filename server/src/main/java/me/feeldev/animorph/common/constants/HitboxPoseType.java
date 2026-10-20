@@ -1,8 +1,5 @@
 package me.feeldev.animorph.common.constants;
 
-/**
- * The player pose a hitbox override applies to, mirroring a model yml's {@code hitboxes:} block.
- */
 public enum HitboxPoseType {
     STANDING,
     SLEEPING,

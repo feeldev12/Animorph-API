@@ -21,10 +21,8 @@ public enum LayerType {
      * @return the matching LayerType, or {@code null} if not found
      */
     public static LayerType getByName(String name) {
-        for (LayerType type : values()) {
-            if (type.name().equalsIgnoreCase(name)) {
-                return type;
-            }
+        for (LayerType layerType : values()) {
+            if (layerType.name().equalsIgnoreCase(name)) return layerType;
         }
         return null;
     }

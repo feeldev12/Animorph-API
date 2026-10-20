@@ -7,7 +7,8 @@ package me.feeldev.animorph.api;
  * when the player views themselves in first person.
  * <p>
  * Instances are mutable — you can modify them directly after obtaining via
- * {@link IMorphAPI#getFirstPersonProperty(Object)} or the client API.
+ * {@link me.feeldev.animorph.api.IMorphAPI#getFirstPersonProperty(Object)} or
+ * {@code me.feeldev.animorph.client.api.ClientMorphAPI#getFirstPersonProperty(UUID)}.
  * <p>
  * Use the {@link Builder} to create new instances:
  * <pre>{@code

@@ -14,8 +14,7 @@ package me.feeldev.animorph.api;
  * }</pre>
  */
 public final class AnimorphProvider {
-
-    private static IMorphAPI<?> instance;
+    private static IMorphAPI api;
 
     private AnimorphProvider() {}
 
@@ -28,10 +27,10 @@ public final class AnimorphProvider {
      */
     @SuppressWarnings("unchecked")
     public static <P> IMorphAPI<P> getApi() {
-        if (instance == null) {
-            throw new NotImplementedException();
+        if (api == null) {
+            throw new IllegalStateException("Animorph API is not initialized. Is the Animorph plugin loaded?");
         }
-        return (IMorphAPI<P>) instance;
+        return api;
     }
 
     /**
@@ -39,13 +38,9 @@ public final class AnimorphProvider {
      *
      * @param <P> the player type
      * @param api the API implementation to register
-     * @throws IllegalStateException if the API has already been registered
      */
     public static <P> void register(IMorphAPI<P> api) {
-        if (instance != null) {
-            throw new IllegalStateException("AnimorphProvider has already been registered.");
-        }
-        instance = api;
+        AnimorphProvider.api = api;
     }
 
     /**
@@ -54,6 +49,6 @@ public final class AnimorphProvider {
      * @return {@code true} if the API has been registered and is ready to use
      */
     public static boolean isAvailable() {
-        return instance != null;
+        return api != null;
     }
 }
