@@ -1,6 +1,8 @@
 package me.feeldev.animorph.api;
 
 import java.awt.*;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Represents a layer within a model.
@@ -36,11 +38,41 @@ public interface ILayer {
     boolean showFirstPerson();
 
     /**
+     * Whether this layer should be automatically enabled when the base model is applied.
+     *
+     * @return {@code true} if the layer is active by default
+     */
+    boolean defaultEnabled();
+
+    List<String> hideBones();
+
+    /**
+     * Bones that should NOT be overwritten by syncArmorAnimation when this layer is rendered.
+     * Allows the layer to retain its own animation for specific bones instead of inheriting
+     * the base model's transform.
+     *
+     * @return set of bone names to exclude from armor sync
+     */
+    default Set<String> syncExclusions() {
+        return Set.of();
+    }
+
+    /**
+     * Animation controller IDs that should be used when this layer is rendered in first-person view.
+     * If empty, the regular controllers() (third-person) are used as fallback.
+     *
+     * @return set of first-person animation controller IDs
+     */
+    default Set<String> fpControllers() {
+        return Set.of();
+    }
+
+    /**
      * ARGB packed color tint applied when rendering this layer.
      * {@code 0xFFFFFFFF} means no tint (full white = render as-is).
-     * Can be overridden at runtime via {@link IMorphAPI#applyLayerColor}.
+     * Can be overridden at runtime via the API on a per-player basis.
      *
-     * @return ARGB packed int, defaults to {@code Color.WHITE.getRGB()}
+     * @return ARGB packed int, defaults to {@code Color.WHITE}
      */
     default int color() {
         return Color.WHITE.getRGB();

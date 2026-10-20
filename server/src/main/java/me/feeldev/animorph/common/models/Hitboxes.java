@@ -50,6 +50,9 @@ public class Hitboxes {
 
     @Override
     public int hashCode() {
+        // HitboxPoseType is an enum: its default hashCode() is identity-based and NOT stable
+        // across JVMs (server vs client), so Map.hashCode() can't be used directly here — hash
+        // the enum's name() instead of the enum itself.
         int mapHash = 0;
         for (Map.Entry<HitboxPoseType, ModelHitbox> entry : hitboxMap.entrySet()) {
             mapHash += entry.getKey().name().hashCode() ^ entry.getValue().hashCode();

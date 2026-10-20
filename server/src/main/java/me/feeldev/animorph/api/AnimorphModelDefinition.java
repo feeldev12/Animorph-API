@@ -1,5 +1,6 @@
 package me.feeldev.animorph.api;
 
+import me.feeldev.animorph.common.constants.EquipmentType;
 import me.feeldev.animorph.common.constants.HitboxPoseType;
 
 import java.io.IOException;
@@ -128,6 +129,33 @@ public abstract class AnimorphModelDefinition {
     /** @return the texture's {@code .mcmeta} JSON content, or {@code null} for a static texture. */
     public String getTextureAnimation() {
         return readText(textureAnimationResourcePath());
+    }
+
+    // -----------------------------------------------------------------------
+    // By ref: the clients get the asset themselves, the server never reads or sends it. A ref is a
+    // remote {@code https://...#sha256=<hex>[&size=<bytes>]} (downloaded and cached by each client)
+    // or a {@code client:<id>}. When a ref is set, the matching content above is ignored — e.g. for
+    // models whose files live on a CDN, or that are too big for a game packet.
+    // -----------------------------------------------------------------------
+
+    /** @return the default geometry's ref, or {@code null} to send {@link #getModelContent()}. */
+    public String getModelRef() {
+        return null;
+    }
+
+    /** @return the slim geometry's ref, or {@code null} to send {@link #getSlimModelContent()}. */
+    public String getSlimModelRef() {
+        return null;
+    }
+
+    /** @return the animation's ref, or {@code null} to send {@link #getAnimationContent()}. */
+    public String getAnimationRef() {
+        return null;
+    }
+
+    /** @return the texture's ref, or {@code null} to send {@link #getTextureBytes()}. */
+    public String getTextureRef() {
+        return null;
     }
 
     /** @return the layers attached to this model; empty if none. */

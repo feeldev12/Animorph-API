@@ -3,6 +3,7 @@ package me.feeldev.animorph.api;
 import me.feeldev.animorph.api.event.AnimorphEventBus;
 import me.feeldev.animorph.common.models.Hitboxes;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -341,7 +342,7 @@ public interface IMorphAPI<P> {
      * Overrides the ARGB color tint of an active layer on a player at runtime.
      * <p>
      * The layer must already be visible. The color takes precedence over the
-     * static {@code color} defined in the layer's config.
+     * static {@code color} defined in the layer's YAML config.
      * Pass {@code null} to revert to the layer's configured color.
      *
      * <pre>{@code
@@ -360,53 +361,6 @@ public interface IMorphAPI<P> {
      */
     @SuppressWarnings("unchecked")
     void applyLayerColor(P player, String layerId, Integer color, P... viewers);
-
-    /**
-     * Overrides the nametag visibility for a player's current model at runtime.
-     * <p>
-     * When {@code hide} is {@code true}, the player's nametag is suppressed regardless
-     * of the static {@code hide_nametag} value defined in the model's YAML config.
-     * This override is cleared automatically when a new model is applied.
-     *
-     * <pre>{@code
-     * // Hide the nametag while the player is morphed
-     * api.setHideNametag(player, true);
-     *
-     * // Restore the model's configured nametag behavior
-     * api.setHideNametag(player, false);
-     * }</pre>
-     *
-     * @param player  the player whose nametag visibility to change
-     * @param hide    {@code true} to hide the nametag, {@code false} to show it
-     * @param viewers optional specific viewers to send the update to;
-     *                if empty, broadcasts to the player and all trackers
-     */
-    @SuppressWarnings("unchecked")
-    void setHideNametag(P player, boolean hide, P... viewers);
-
-    /**
-     * Overrides the display name shown for a player's current model at runtime.
-     * <p>
-     * When set, this name replaces the player's username in chat, the tab list,
-     * the 3D nametag, advancements, and death messages.
-     * Pass {@code null} to revert to the model's configured {@code display_name},
-     * or to the player's real username if none is configured.
-     * This override is cleared automatically when a new model is applied.
-     *
-     * <pre>{@code
-     * // Personalize the name per player
-     * api.setModelDisplayName(player, "Dragon " + player.getName());
-     *
-     * // Revert to model config
-     * api.setModelDisplayName(player, null);
-     * }</pre>
-     *
-     * @param player      the player whose display name to change
-     * @param displayName the name to show, or {@code null} to revert
-     * @param viewers     optional specific viewers; if empty, updates for all online players
-     */
-    @SuppressWarnings("unchecked")
-    void setModelDisplayName(P player, String displayName, P... viewers);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Resource Bundle API
@@ -640,6 +594,53 @@ public interface IMorphAPI<P> {
     boolean isLayerActive(P player, String layerId);
 
     /**
+     * Overrides the nametag visibility for a player's current model at runtime.
+     * <p>
+     * When {@code hide} is {@code true}, the player's nametag is suppressed regardless
+     * of the static {@code hide_nametag} value defined in the model's YAML config.
+     * This override is cleared automatically when a new model is applied.
+     *
+     * <pre>{@code
+     * // Hide the nametag while the player is morphed
+     * api.setHideNametag(player, true);
+     *
+     * // Restore the model's configured nametag behavior
+     * api.setHideNametag(player, false);
+     * }</pre>
+     *
+     * @param player  the player whose nametag visibility to change
+     * @param hide    {@code true} to hide the nametag, {@code false} to show it
+     * @param viewers optional specific viewers to send the update to;
+     *                if empty, broadcasts to the player and all trackers
+     */
+    @SuppressWarnings("unchecked")
+    void setHideNametag(P player, boolean hide, P... viewers);
+
+    /**
+     * Overrides the display name shown for a player's current model at runtime.
+     * <p>
+     * When set, this name replaces the player's username in chat, the tab list,
+     * the 3D nametag, advancements, and death messages.
+     * Pass {@code null} to revert to the model's configured {@code display_name},
+     * or to the player's real username if none is configured.
+     * This override is cleared automatically when a new model is applied.
+     *
+     * <pre>{@code
+     * // Personalize the name per player
+     * api.setModelDisplayName(player, "Dragon " + player.getName());
+     *
+     * // Revert to model config
+     * api.setModelDisplayName(player, null);
+     * }</pre>
+     *
+     * @param player      the player whose display name to change
+     * @param displayName the name to show, or {@code null} to revert
+     * @param viewers     optional specific viewers; if empty, updates for all online players
+     */
+    @SuppressWarnings("unchecked")
+    void setModelDisplayName(P player, String displayName, P... viewers);
+
+    /**
      * Gets all layer states for a player.
      * <p>
      * The returned map contains layer IDs as keys and their visibility state as values.
@@ -658,4 +659,53 @@ public interface IMorphAPI<P> {
      * @return an unmodifiable map of placeholder key to value; empty map if no placeholders are set
      */
     Map<String, String> getTextPlaceholders(P player);
+
+    /**
+     * Replaces the player's movement animations ({@code extended_pose} states) with the ones in
+     * {@code overrides}, for the player and everyone who sees them, now and later (players who
+     * start tracking them get it too). {@link AnimationOverrides#NONE} restores the model's own.
+     * Files are refs the clients resolve or download themselves, never sent in the packet.
+     * <p>
+     * Only on Fabric/Forge/NeoForge servers for now; other platforms ignore it.
+     *
+     * @param viewers send only to these players; empty = the player and everyone tracking them
+     */
+    @SuppressWarnings("unchecked")
+    default void setAnimationOverrides(P player, AnimationOverrides overrides, P... viewers) {
+    }
+
+    /** The player's current movement animation replacements; {@link AnimationOverrides#NONE} if none. */
+    default AnimationOverrides getAnimationOverrides(P player) {
+        return AnimationOverrides.NONE;
+    }
+
+    /**
+     * Dresses the player on their own model: skin, slim/classic, cape and attached layer models (see
+     * {@link PlayerAppearance}), for the player and everyone who sees them, now and later.
+     * {@link PlayerAppearance#NONE} restores their own look. Textures are refs the clients resolve
+     * or download themselves; attached layers are registered {@code is_layer} models.
+     * <p>
+     * Only on Fabric/Forge/NeoForge servers for now; other platforms ignore it.
+     *
+     * @param viewers send only to these players; empty = the player and everyone tracking them
+     */
+    @SuppressWarnings("unchecked")
+    default void setAppearance(P player, PlayerAppearance appearance, P... viewers) {
+    }
+
+    /** The player's current appearance; {@link PlayerAppearance#NONE} if none. */
+    default PlayerAppearance getAppearance(P player) {
+        return PlayerAppearance.NONE;
+    }
+
+    /**
+     * Asks clients to start downloading remote asset refs ({@code https://...#sha256=...}) they'll
+     * need soon — e.g. a joining player's, before they appear — so they're cached by then.
+     * Refs already cached or not remote are ignored by the client.
+     *
+     * @param viewers the players to warm; empty = every online player
+     */
+    @SuppressWarnings("unchecked")
+    default void prefetchAssets(Collection<String> refs, P... viewers) {
+    }
 }
