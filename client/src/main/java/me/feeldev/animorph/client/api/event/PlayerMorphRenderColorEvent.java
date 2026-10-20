@@ -30,25 +30,16 @@ import software.bernie.geckolib.util.Color;
  */
 public class PlayerMorphRenderColorEvent extends AnimorphEvent<AbstractClientPlayer> {
 
-    private Color color;
-    private final float partialTick;
-    private final int packedLight;
-
-    public PlayerMorphRenderColorEvent(
-            AbstractClientPlayer player,
-            Color color,
-            float partialTick,
-            int packedLight
-    ) {
+    public PlayerMorphRenderColorEvent(AbstractClientPlayer player, Color color, float partialTick, int packedLight) {
         super(player);
-        this.color = color;
-        this.partialTick = partialTick;
-        this.packedLight = packedLight;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** The player whose morph color is being resolved. */
+    /**
+     * The player whose morph color is being resolved.
+     */
     public AbstractClientPlayer getPlayer() {
-        return super.getPlayer();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -58,7 +49,7 @@ public class PlayerMorphRenderColorEvent extends AnimorphEvent<AbstractClientPla
      * alpha reduction). You can read it, modify it, or replace it entirely.
      */
     public Color getColor() {
-        return color;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -67,17 +58,20 @@ public class PlayerMorphRenderColorEvent extends AnimorphEvent<AbstractClientPla
      * @param color the new ARGB color; must not be {@code null}
      */
     public void setColor(Color color) {
-        if (color == null) throw new IllegalArgumentException("color must not be null");
-        this.color = color;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Partial render tick, in {@code [0, 1)}. */
+    /**
+     * Partial render tick, in {@code [0, 1)}.
+     */
     public float getPartialTick() {
-        return partialTick;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Packed block + sky light for this render position. */
+    /**
+     * Packed block + sky light for this render position.
+     */
     public int getPackedLight() {
-        return packedLight;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

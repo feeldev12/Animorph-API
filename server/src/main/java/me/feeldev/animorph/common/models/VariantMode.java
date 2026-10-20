@@ -6,7 +6,10 @@ package me.feeldev.animorph.common.models;
  * animation's numbered variants (e.g. {@code "standing.jump"}/{@code "standing.jump.2"}).
  */
 public enum VariantMode {
-    /** Pick a variant at random on every reroll. Default — matches the original behavior. */
+
+    /**
+     * Pick a variant at random on every reroll. Default — matches the original behavior.
+     */
     RANDOM,
     /**
      * Cycle through variants in ascending suffix order (base, {@code .2}, {@code .3}, ...,

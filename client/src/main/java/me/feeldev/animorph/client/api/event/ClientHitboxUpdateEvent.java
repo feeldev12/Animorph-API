@@ -2,7 +2,6 @@ package me.feeldev.animorph.client.api.event;
 
 import me.feeldev.animorph.api.event.AnimorphEvent;
 import me.feeldev.animorph.common.models.Hitboxes;
-
 import java.util.UUID;
 
 /**
@@ -11,11 +10,10 @@ import java.util.UUID;
  * This event is not cancellable — the change has already been applied.
  */
 public class ClientHitboxUpdateEvent extends AnimorphEvent<UUID> {
-    private final Hitboxes hitboxes;
 
     public ClientHitboxUpdateEvent(UUID playerId, Hitboxes hitboxes) {
         super(playerId);
-        this.hitboxes = hitboxes;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -24,7 +22,7 @@ public class ClientHitboxUpdateEvent extends AnimorphEvent<UUID> {
      * @return the player UUID
      */
     public UUID getPlayerId() {
-        return getPlayer();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -33,6 +31,6 @@ public class ClientHitboxUpdateEvent extends AnimorphEvent<UUID> {
      * @return the updated hitboxes
      */
     public Hitboxes getHitboxes() {
-        return hitboxes;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

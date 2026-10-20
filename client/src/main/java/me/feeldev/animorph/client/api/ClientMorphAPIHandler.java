@@ -3,8 +3,9 @@ package me.feeldev.animorph.client.api;
 import me.feeldev.animorph.api.IFirstPersonProperty;
 import me.feeldev.animorph.client.interfaces.ICustomMolangQuery;
 import me.feeldev.animorph.client.interfaces.IPlayerData;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.cache.object.GeoBone;
-
 import java.util.Optional;
 import java.util.UUID;
 
@@ -48,4 +49,10 @@ public interface ClientMorphAPIHandler {
     void registerRenderLayer(AnimorphRenderLayer layer);
 
     void registerRenderLayer(String modelId, AnimorphRenderLayer layer);
+
+    void startRagdoll(UUID playerId, @Nullable Vec3 impulse);
+
+    void stopRagdoll(UUID playerId);
+
+    boolean isRagdolled(UUID playerId);
 }

@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import me.feeldev.animorph.api.event.AnimorphEvent;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 
 /**
@@ -38,35 +37,16 @@ import software.bernie.geckolib.cache.object.BakedGeoModel;
  */
 public class PlayerMorphPreRenderEvent extends AnimorphEvent<AbstractClientPlayer> {
 
-    private final PoseStack matrices;
-    private final BakedGeoModel model;
-    private final MultiBufferSource bufferSource;
-    private final float partialTick;
-    private final int packedLight;
-    private final int packedOverlay;
-    private boolean cancelled = false;
-
-    public PlayerMorphPreRenderEvent(
-            AbstractClientPlayer player,
-            PoseStack matrices,
-            BakedGeoModel model,
-            MultiBufferSource bufferSource,
-            float partialTick,
-            int packedLight,
-            int packedOverlay
-    ) {
+    public PlayerMorphPreRenderEvent(AbstractClientPlayer player, PoseStack poseStack, BakedGeoModel model, MultiBufferSource bufferSource, float partialTick, int packedLight, int packedOverlay) {
         super(player);
-        this.matrices = matrices;
-        this.model = model;
-        this.bufferSource = bufferSource;
-        this.partialTick = partialTick;
-        this.packedLight = packedLight;
-        this.packedOverlay = packedOverlay;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** The player whose morph is about to be rendered. */
+    /**
+     * The player whose morph is about to be rendered.
+     */
     public AbstractClientPlayer getPlayer() {
-        return super.getPlayer();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -76,7 +56,7 @@ public class PlayerMorphPreRenderEvent extends AnimorphEvent<AbstractClientPlaye
      * Always balance every {@code pushPose()} with a {@code popPose()}.
      */
     public PoseStack getPoseStack() {
-        return matrices;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -86,39 +66,45 @@ public class PlayerMorphPreRenderEvent extends AnimorphEvent<AbstractClientPlaye
      * before the draw call.
      */
     public BakedGeoModel getModel() {
-        return model;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
      * The buffer source for this render frame.
      * <p>
      * Use this to render additional geometry before the morph model is drawn.
-     * Retrieve a buffer with {@code bufferSource.getBuffer(renderLayer)}.
+     * Retrieve a buffer with {@code bufferSource.getBuffer(renderType)}.
      */
     public MultiBufferSource getBufferSource() {
-        return bufferSource;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Partial render tick, in {@code [0, 1)}. */
+    /**
+     * Partial render tick, in {@code [0, 1)}.
+     */
     public float getPartialTick() {
-        return partialTick;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Packed block + sky light for this render position. */
+    /**
+     * Packed block + sky light for this render position.
+     */
     public int getPackedLight() {
-        return packedLight;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Packed overlay UVs (damage flash, etc.). */
+    /**
+     * Packed overlay UVs (damage flash, etc.).
+     */
     public int getPackedOverlay() {
-        return packedOverlay;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
      * Returns {@code true} if the morph render has been cancelled for this frame.
      */
     public boolean isCancelled() {
-        return cancelled;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -131,6 +117,6 @@ public class PlayerMorphPreRenderEvent extends AnimorphEvent<AbstractClientPlaye
      * @param cancelled {@code true} to suppress the render
      */
     public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

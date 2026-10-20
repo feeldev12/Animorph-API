@@ -1,7 +1,6 @@
 package me.feeldev.animorph.api;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Per-player replacements for the {@code extended_pose} movement animations (idle, walk, sprint...),
@@ -21,19 +20,21 @@ import java.util.Objects;
  */
 public record AnimationOverrides(String modelId, List<Source> sources) {
 
-    public static final AnimationOverrides NONE = new AnimationOverrides(null, List.of());
+    public static final AnimationOverrides NONE = null;
 
     public AnimationOverrides {
-        sources = List.copyOf(Objects.requireNonNull(sources, "sources"));
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     public boolean isEmpty() {
-        return sources.isEmpty();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Every file ref, e.g. to prefetch them before the player shows up. */
+    /**
+     * Every file ref, e.g. to prefetch them before the player shows up.
+     */
     public List<String> fileRefs() {
-        return sources.stream().map(Source::fileRef).distinct().toList();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -41,9 +42,9 @@ public record AnimationOverrides(String modelId, List<Source> sources) {
      * @param states  Animorph states without the {@code extended_pose.} prefix
      */
     public record Source(String fileRef, List<String> states) {
+
         public Source {
-            Objects.requireNonNull(fileRef, "fileRef");
-            states = List.copyOf(Objects.requireNonNull(states, "states"));
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
         }
     }
 }

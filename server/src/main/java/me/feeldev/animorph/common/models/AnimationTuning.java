@@ -15,18 +15,22 @@ package me.feeldev.animorph.common.models;
  */
 public record AnimationTuning(int transitionTime, Boolean override, VariantMode mode) {
 
-    /** Sentinel for "no transition override configured" — falls back to the controller's own transitionTime. */
+    /**
+     * Sentinel for "no transition override configured" — falls back to the controller's own transitionTime.
+     */
     public static final int NO_TRANSITION = -1;
 
     public AnimationTuning {
-        if (mode == null) mode = VariantMode.RANDOM;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     public AnimationTuning(int transitionTime, Boolean override) {
         this(transitionTime, override, VariantMode.RANDOM);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     public AnimationTuning(int transitionTime) {
         this(transitionTime, null);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

@@ -2,8 +2,6 @@ package me.feeldev.animorph.api;
 
 import me.feeldev.animorph.common.models.AnimationTuning;
 import me.feeldev.animorph.common.models.VariantMode;
-
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -26,23 +24,11 @@ import java.util.Map;
  */
 public final class AnimorphControllerDefinition {
 
-    private final String id;
-    private final boolean isId;
-    private final String content;
-    private int transitionTime = 0;
-    private boolean override = false;
-    private String linkedController = null;
-    private int variantRerollTicks = -1;
     // Single map keyed by animation name, like the yml's own animation_transitions — bundles
     // every per-animation knob (transition time, override, whatever's added later) instead of a
     // separate parallel map per property. animationTransition()/animationOverride() below are two
-    // separate fluent setters for ergonomics, but both write into this same map.
-    private final Map<String, AnimationTuning> animationTuning = new HashMap<>();
-
     private AnimorphControllerDefinition(String id, boolean isId, String content) {
-        this.id = id;
-        this.isId = isId;
-        this.content = content;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -52,7 +38,7 @@ public final class AnimorphControllerDefinition {
      * @return a new controller definition
      */
     public static AnimorphControllerDefinition nativeController(String id) {
-        return new AnimorphControllerDefinition(id, true, id);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -63,13 +49,14 @@ public final class AnimorphControllerDefinition {
      * @return a new controller definition
      */
     public static AnimorphControllerDefinition content(String id, String jsonContent) {
-        return new AnimorphControllerDefinition(id, false, jsonContent);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Sets the transition time in ticks. Defaults to {@code 0}. */
+    /**
+     * Sets the transition time in ticks. Defaults to {@code 0}.
+     */
     public AnimorphControllerDefinition transitionTime(int ticks) {
-        this.transitionTime = ticks;
-        return this;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -78,8 +65,7 @@ public final class AnimorphControllerDefinition {
      * {@code false} (additive, GeckoLib's default blending behaviour).
      */
     public AnimorphControllerDefinition override(boolean override) {
-        this.override = override;
-        return this;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -92,8 +78,7 @@ public final class AnimorphControllerDefinition {
      * (no link).
      */
     public AnimorphControllerDefinition linkedController(String controllerId) {
-        this.linkedController = controllerId;
-        return this;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -106,8 +91,7 @@ public final class AnimorphControllerDefinition {
      * are only picked once per state entry, no periodic reroll).
      */
     public AnimorphControllerDefinition variantRerollTicks(int ticks) {
-        this.variantRerollTicks = ticks;
-        return this;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -118,11 +102,7 @@ public final class AnimorphControllerDefinition {
      * @param ticks         the transition time in ticks for that animation
      */
     public AnimorphControllerDefinition animationTransition(String animationName, int ticks) {
-        AnimationTuning existing = animationTuning.get(animationName);
-        Boolean override = existing != null ? existing.override() : null;
-        VariantMode mode = existing != null ? existing.mode() : VariantMode.RANDOM;
-        animationTuning.put(animationName, new AnimationTuning(ticks, override, mode));
-        return this;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -137,11 +117,7 @@ public final class AnimorphControllerDefinition {
      * @param override      whether this specific animation should behave as override
      */
     public AnimorphControllerDefinition animationOverride(String animationName, boolean override) {
-        AnimationTuning existing = animationTuning.get(animationName);
-        int time = existing != null ? existing.transitionTime() : AnimationTuning.NO_TRANSITION;
-        VariantMode mode = existing != null ? existing.mode() : VariantMode.RANDOM;
-        animationTuning.put(animationName, new AnimationTuning(time, override, mode));
-        return this;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -154,19 +130,38 @@ public final class AnimorphControllerDefinition {
      * @param mode          the variant selection strategy for that animation
      */
     public AnimorphControllerDefinition animationVariantMode(String animationName, VariantMode mode) {
-        AnimationTuning existing = animationTuning.get(animationName);
-        int time = existing != null ? existing.transitionTime() : AnimationTuning.NO_TRANSITION;
-        Boolean override = existing != null ? existing.override() : null;
-        animationTuning.put(animationName, new AnimationTuning(time, override, mode));
-        return this;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    String id() { return id; }
-    boolean isId() { return isId; }
-    String content() { return content; }
-    int transitionTime() { return transitionTime; }
-    boolean override() { return override; }
-    String linkedController() { return linkedController; }
-    int variantRerollTicks() { return variantRerollTicks; }
-    Map<String, AnimationTuning> animationTuning() { return animationTuning; }
+    String id() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    boolean isId() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    String content() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    int transitionTime() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    boolean override() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    String linkedController() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    int variantRerollTicks() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    Map<String, AnimationTuning> animationTuning() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
 }

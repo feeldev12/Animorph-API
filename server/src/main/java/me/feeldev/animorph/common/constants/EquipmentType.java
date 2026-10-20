@@ -1,6 +1,7 @@
 package me.feeldev.animorph.common.constants;
 
 public enum EquipmentType {
+
     HEAD("head_armor"),
     CHEST("chest_armor"),
     LEGS("legs_armor"),
@@ -12,14 +13,14 @@ public enum EquipmentType {
     final String armorName;
 
     EquipmentType(String armorName) {
-        this.armorName = armorName;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     public String getArmorName() {
-        return armorName;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     public static EquipmentType fromId(int id) {
-        return EquipmentType.values()[id];
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

@@ -27,6 +27,7 @@ package me.feeldev.animorph.api;
 public interface IFirstPersonProperty {
 
     boolean showModel();
+
     void setShowModel(boolean showModel);
 
     IModelOptions modelOptions();
@@ -34,13 +35,14 @@ public interface IFirstPersonProperty {
     ICustomArms customArms();
 
     boolean showEquipment();
+
     void setShowEquipment(boolean showEquipment);
 
     /**
      * Creates a new builder with default values (all false, offset 0,0,0).
      */
     static Builder builder() {
-        return new Builder();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -49,19 +51,24 @@ public interface IFirstPersonProperty {
      * @param source the property to copy values from
      */
     static Builder builder(IFirstPersonProperty source) {
-        return new Builder().from(source);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
      * Model rendering options for first person view.
      */
     interface IModelOptions {
+
         double offsetX();
+
         double offsetY();
+
         double offsetZ();
 
         void setOffsetX(double x);
+
         void setOffsetY(double y);
+
         void setOffsetZ(double z);
     }
 
@@ -69,12 +76,17 @@ public interface IFirstPersonProperty {
      * Custom arms rendering options.
      */
     interface ICustomArms {
+
         boolean show();
+
         boolean bothHands();
+
         boolean customRenderItems();
 
         void setShow(boolean show);
+
         void setBothHands(boolean bothHands);
+
         void setCustomRenderItems(boolean customRenderItems);
     }
 
@@ -82,129 +94,148 @@ public interface IFirstPersonProperty {
      * Builder for creating {@link IFirstPersonProperty} instances.
      */
     class Builder {
-        private boolean showModel;
-        private double modelOffsetX;
-        private double modelOffsetY;
-        private double modelOffsetZ;
-        private boolean customArmsShow;
-        private boolean customArmsBothHands;
-        private boolean customArmsRenderItems;
-        private boolean showEquipment;
 
         public Builder showModel(boolean showModel) {
-            this.showModel = showModel;
-            return this;
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
         }
 
         public Builder modelOffset(double x, double y, double z) {
-            this.modelOffsetX = x;
-            this.modelOffsetY = y;
-            this.modelOffsetZ = z;
-            return this;
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
         }
 
         public Builder customArmsShow(boolean show) {
-            this.customArmsShow = show;
-            return this;
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
         }
 
         public Builder customArmsBothHands(boolean bothHands) {
-            this.customArmsBothHands = bothHands;
-            return this;
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
         }
 
         public Builder customArmsRenderItems(boolean customRenderItems) {
-            this.customArmsRenderItems = customRenderItems;
-            return this;
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
         }
 
         public Builder showEquipment(boolean showEquipment) {
-            this.showEquipment = showEquipment;
-            return this;
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
         }
 
         public Builder from(IFirstPersonProperty source) {
-            this.showModel = source.showModel();
-            this.showEquipment = source.showEquipment();
-            if (source.modelOptions() != null) {
-                this.modelOffsetX = source.modelOptions().offsetX();
-                this.modelOffsetY = source.modelOptions().offsetY();
-                this.modelOffsetZ = source.modelOptions().offsetZ();
-            }
-            if (source.customArms() != null) {
-                this.customArmsShow = source.customArms().show();
-                this.customArmsBothHands = source.customArms().bothHands();
-                this.customArmsRenderItems = source.customArms().customRenderItems();
-            }
-            return this;
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
         }
 
         public IFirstPersonProperty build() {
-            return new Default(
-                    showModel,
-                    new DefaultModelOptions(modelOffsetX, modelOffsetY, modelOffsetZ),
-                    new DefaultCustomArms(customArmsShow, customArmsBothHands, customArmsRenderItems),
-                    showEquipment
-            );
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
         }
     }
 
     class Default implements IFirstPersonProperty {
-        private boolean showModel;
-        private final DefaultModelOptions modelOptions;
-        private final DefaultCustomArms customArms;
-        private boolean showEquipment;
 
         public Default(boolean showModel, DefaultModelOptions modelOptions, DefaultCustomArms customArms, boolean showEquipment) {
-            this.showModel = showModel;
-            this.modelOptions = modelOptions;
-            this.customArms = customArms;
-            this.showEquipment = showEquipment;
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
         }
 
-        @Override public boolean showModel() { return showModel; }
-        @Override public void setShowModel(boolean showModel) { this.showModel = showModel; }
-        @Override public IModelOptions modelOptions() { return modelOptions; }
-        @Override public ICustomArms customArms() { return customArms; }
-        @Override public boolean showEquipment() { return showEquipment; }
-        @Override public void setShowEquipment(boolean showEquipment) { this.showEquipment = showEquipment; }
+        @Override
+        public boolean showModel() {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
+
+        @Override
+        public void setShowModel(boolean showModel) {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
+
+        @Override
+        public IModelOptions modelOptions() {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
+
+        @Override
+        public ICustomArms customArms() {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
+
+        @Override
+        public boolean showEquipment() {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
+
+        @Override
+        public void setShowEquipment(boolean showEquipment) {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
     }
 
     class DefaultModelOptions implements IModelOptions {
-        private double offsetX;
-        private double offsetY;
-        private double offsetZ;
 
         public DefaultModelOptions(double offsetX, double offsetY, double offsetZ) {
-            this.offsetX = offsetX;
-            this.offsetY = offsetY;
-            this.offsetZ = offsetZ;
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
         }
 
-        @Override public double offsetX() { return offsetX; }
-        @Override public double offsetY() { return offsetY; }
-        @Override public double offsetZ() { return offsetZ; }
-        @Override public void setOffsetX(double x) { this.offsetX = x; }
-        @Override public void setOffsetY(double y) { this.offsetY = y; }
-        @Override public void setOffsetZ(double z) { this.offsetZ = z; }
+        @Override
+        public double offsetX() {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
+
+        @Override
+        public double offsetY() {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
+
+        @Override
+        public double offsetZ() {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
+
+        @Override
+        public void setOffsetX(double x) {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
+
+        @Override
+        public void setOffsetY(double y) {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
+
+        @Override
+        public void setOffsetZ(double z) {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
     }
 
     class DefaultCustomArms implements ICustomArms {
-        private boolean show;
-        private boolean bothHands;
-        private boolean customRenderItems;
 
         public DefaultCustomArms(boolean show, boolean bothHands, boolean customRenderItems) {
-            this.show = show;
-            this.bothHands = bothHands;
-            this.customRenderItems = customRenderItems;
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
         }
 
-        @Override public boolean show() { return show; }
-        @Override public boolean bothHands() { return bothHands; }
-        @Override public boolean customRenderItems() { return customRenderItems; }
-        @Override public void setShow(boolean show) { this.show = show; }
-        @Override public void setBothHands(boolean bothHands) { this.bothHands = bothHands; }
-        @Override public void setCustomRenderItems(boolean customRenderItems) { this.customRenderItems = customRenderItems; }
+        @Override
+        public boolean show() {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
+
+        @Override
+        public boolean bothHands() {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
+
+        @Override
+        public boolean customRenderItems() {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
+
+        @Override
+        public void setShow(boolean show) {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
+
+        @Override
+        public void setBothHands(boolean bothHands) {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
+
+        @Override
+        public void setCustomRenderItems(boolean customRenderItems) {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
     }
 }

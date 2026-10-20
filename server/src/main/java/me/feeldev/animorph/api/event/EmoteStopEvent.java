@@ -10,14 +10,10 @@ import java.util.Set;
  * @param <P> the player type
  */
 public class EmoteStopEvent<P> extends AnimorphEvent<P> implements Cancellable {
-    private final String emoteId;
-    private final Set<String> layerIds;
-    private boolean cancelled;
 
     public EmoteStopEvent(P player, String emoteId, Set<String> layerIds) {
         super(player);
-        this.emoteId = emoteId;
-        this.layerIds = layerIds;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -26,7 +22,7 @@ public class EmoteStopEvent<P> extends AnimorphEvent<P> implements Cancellable {
      * @return the emote ID
      */
     public String getEmoteId() {
-        return emoteId;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -35,7 +31,7 @@ public class EmoteStopEvent<P> extends AnimorphEvent<P> implements Cancellable {
      * @return the layer IDs, or {@code null} if it was a model-level emote
      */
     public Set<String> getLayerIds() {
-        return layerIds;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -44,16 +40,16 @@ public class EmoteStopEvent<P> extends AnimorphEvent<P> implements Cancellable {
      * @return {@code true} if the emote was targeting specific layers
      */
     public boolean isLayerEmote() {
-        return layerIds != null && !layerIds.isEmpty();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     @Override
     public boolean isCancelled() {
-        return cancelled;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     @Override
     public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

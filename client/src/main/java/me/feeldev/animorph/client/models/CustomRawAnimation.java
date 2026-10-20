@@ -3,19 +3,16 @@ package me.feeldev.animorph.client.models;
 import software.bernie.geckolib.animation.RawAnimation;
 
 public class CustomRawAnimation {
-    private final String animationName;
-    private final RawAnimation rawAnimation;
 
     public CustomRawAnimation(String animationName) {
-        this.animationName = animationName;
-        this.rawAnimation = RawAnimation.begin().thenPlay(animationName);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     public String getAnimationName() {
-        return animationName;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     public RawAnimation getRawAnimation() {
-        return rawAnimation;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

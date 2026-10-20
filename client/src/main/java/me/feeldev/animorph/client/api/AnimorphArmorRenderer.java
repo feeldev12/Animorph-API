@@ -48,7 +48,5 @@ public interface AnimorphArmorRenderer {
      * @param morphContext  the active morph data; use {@code morphContext.animorph$getModel()}
      *                      to access the GeckoLib model and sync bone transforms
      */
-    void renderOnMorph(PoseStack matrices, MultiBufferSource bufferSource,
-                       ItemStack stack, LivingEntity entity, EquipmentSlot slot,
-                       int light, IPlayerData morphContext);
+    void renderOnMorph(PoseStack matrices, MultiBufferSource bufferSource, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, IPlayerData morphContext);
 }

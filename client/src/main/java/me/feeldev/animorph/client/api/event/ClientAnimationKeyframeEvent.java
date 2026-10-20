@@ -1,7 +1,6 @@
 package me.feeldev.animorph.client.api.event;
 
 import me.feeldev.animorph.api.event.AnimorphEvent;
-
 import java.util.UUID;
 
 /**
@@ -27,45 +26,45 @@ import java.util.UUID;
  * }</pre>
  */
 public class ClientAnimationKeyframeEvent extends AnimorphEvent<UUID> {
-    private final String animation;
-    private final String event;
-    private final double tick;
-    private final boolean localPlayer;
-    private boolean sendToServer;
 
-    public ClientAnimationKeyframeEvent(UUID playerId, String animation, String event, double tick,
-                                        boolean localPlayer, boolean sendToServer) {
+    public ClientAnimationKeyframeEvent(UUID playerId, String animation, String event, double tick, boolean localPlayer, boolean sendToServer) {
         super(playerId);
-        this.animation = animation;
-        this.event = event;
-        this.tick = tick;
-        this.localPlayer = localPlayer;
-        this.sendToServer = sendToServer;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** The playing animation's name, as in the animation file. */
+    /**
+     * The playing animation's name, as in the animation file.
+     */
     public String getAnimation() {
-        return animation;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** The event name ({@code <event>} in {@code animorph:<event>}). */
+    /**
+     * The event name ({@code <event>} in {@code animorph:<event>}).
+     */
     public String getEvent() {
-        return event;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** The animation tick the keyframe sits on. */
+    /**
+     * The animation tick the keyframe sits on.
+     */
     public double getTick() {
-        return tick;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Whether the animated player is this client's own player (only its events can reach the server). */
+    /**
+     * Whether the animated player is this client's own player (only its events can reach the server).
+     */
     public boolean isLocalPlayer() {
-        return localPlayer;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Whether the event will be forwarded to the server after the listeners ran. */
+    /**
+     * Whether the event will be forwarded to the server after the listeners ran.
+     */
     public boolean isSentToServer() {
-        return sendToServer && localPlayer;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -73,6 +72,6 @@ public class ClientAnimationKeyframeEvent extends AnimorphEvent<UUID> {
      * keyframes ({@code animorph:server:<event>}) are forwarded without calling this.
      */
     public void sendToServer() {
-        this.sendToServer = true;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

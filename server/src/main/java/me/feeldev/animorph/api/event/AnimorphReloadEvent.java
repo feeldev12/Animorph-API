@@ -10,5 +10,6 @@ public class AnimorphReloadEvent extends AnimorphEvent<Void> {
 
     public AnimorphReloadEvent() {
         super(null);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

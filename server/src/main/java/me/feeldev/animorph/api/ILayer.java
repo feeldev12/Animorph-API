@@ -54,7 +54,7 @@ public interface ILayer {
      * @return set of bone names to exclude from armor sync
      */
     default Set<String> syncExclusions() {
-        return Set.of();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -64,7 +64,7 @@ public interface ILayer {
      * @return set of first-person animation controller IDs
      */
     default Set<String> fpControllers() {
-        return Set.of();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -75,7 +75,7 @@ public interface ILayer {
      * @return ARGB packed int, defaults to {@code Color.WHITE}
      */
     default int color() {
-        return Color.WHITE.getRGB();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -88,6 +88,6 @@ public interface ILayer {
      * @return the exclusive group id, or {@code null} if none
      */
     default String group() {
-        return null;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

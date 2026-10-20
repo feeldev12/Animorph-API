@@ -1,9 +1,5 @@
 package me.feeldev.animorph.api.event;
 
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
 
 /**
@@ -21,7 +17,6 @@ import java.util.function.Consumer;
  * }</pre>
  */
 public class AnimorphEventBus {
-    private final Map<Class<?>, List<Consumer<?>>> listeners = new ConcurrentHashMap<>();
 
     /**
      * Registers a listener for a specific event type.
@@ -31,7 +26,7 @@ public class AnimorphEventBus {
      * @param <T>        the event type
      */
     public <T extends AnimorphEvent<?>> void register(Class<T> eventClass, Consumer<T> listener) {
-        listeners.computeIfAbsent(eventClass, k -> new CopyOnWriteArrayList<>()).add(listener);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -42,10 +37,7 @@ public class AnimorphEventBus {
      * @param <T>        the event type
      */
     public <T extends AnimorphEvent<?>> void unregister(Class<T> eventClass, Consumer<T> listener) {
-        List<Consumer<?>> list = listeners.get(eventClass);
-        if (list != null) {
-            list.remove(listener);
-        }
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -57,12 +49,6 @@ public class AnimorphEventBus {
      */
     @SuppressWarnings("unchecked")
     public <T extends AnimorphEvent<?>> T fire(T event) {
-        List<Consumer<?>> list = listeners.get(event.getClass());
-        if (list != null) {
-            for (Consumer<?> listener : list) {
-                ((Consumer<T>) listener).accept(event);
-            }
-        }
-        return event;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

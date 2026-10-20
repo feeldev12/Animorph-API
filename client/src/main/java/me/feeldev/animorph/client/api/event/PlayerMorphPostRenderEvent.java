@@ -19,41 +19,23 @@ import software.bernie.geckolib.cache.object.BakedGeoModel;
  *
  * <pre>{@code
  * ClientMorphAPI.getEventBus().register(PlayerMorphPostRenderEvent.class, event -> {
- *     VertexConsumer buffer = event.getBufferSource().getBuffer(RenderLayer.getLines());
+ *     VertexConsumer buffer = event.getBufferSource().getBuffer(RenderType.lines());
  *     // render a bounding box, outline, particle anchor, etc.
  * });
  * }</pre>
  */
 public class PlayerMorphPostRenderEvent extends AnimorphEvent<AbstractClientPlayer> {
 
-    private final PoseStack matrices;
-    private final BakedGeoModel model;
-    private final MultiBufferSource bufferSource;
-    private final float partialTick;
-    private final int packedLight;
-    private final int packedOverlay;
-
-    public PlayerMorphPostRenderEvent(
-            AbstractClientPlayer player,
-            PoseStack matrices,
-            BakedGeoModel model,
-            MultiBufferSource bufferSource,
-            float partialTick,
-            int packedLight,
-            int packedOverlay
-    ) {
+    public PlayerMorphPostRenderEvent(AbstractClientPlayer player, PoseStack poseStack, BakedGeoModel model, MultiBufferSource bufferSource, float partialTick, int packedLight, int packedOverlay) {
         super(player);
-        this.matrices = matrices;
-        this.model = model;
-        this.bufferSource = bufferSource;
-        this.partialTick = partialTick;
-        this.packedLight = packedLight;
-        this.packedOverlay = packedOverlay;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** The player whose morph was rendered. */
+    /**
+     * The player whose morph was rendered.
+     */
     public AbstractClientPlayer getPlayer() {
-        return super.getPlayer();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -63,12 +45,14 @@ public class PlayerMorphPostRenderEvent extends AnimorphEvent<AbstractClientPlay
      * Always balance any {@code pushPose()} calls with {@code popPose()}.
      */
     public PoseStack getPoseStack() {
-        return matrices;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** The baked model that was rendered. */
+    /**
+     * The baked model that was rendered.
+     */
     public BakedGeoModel getModel() {
-        return model;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -77,21 +61,27 @@ public class PlayerMorphPostRenderEvent extends AnimorphEvent<AbstractClientPlay
      * Use this to render additional geometry on top of the morph model.
      */
     public MultiBufferSource getBufferSource() {
-        return bufferSource;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Partial render tick, in {@code [0, 1)}. */
+    /**
+     * Partial render tick, in {@code [0, 1)}.
+     */
     public float getPartialTick() {
-        return partialTick;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Packed block + sky light for this render position. */
+    /**
+     * Packed block + sky light for this render position.
+     */
     public int getPackedLight() {
-        return packedLight;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Packed overlay UVs (damage flash, etc.). */
+    /**
+     * Packed overlay UVs (damage flash, etc.).
+     */
     public int getPackedOverlay() {
-        return packedOverlay;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

@@ -2,10 +2,6 @@ package me.feeldev.animorph.api;
 
 import me.feeldev.animorph.common.constants.EquipmentType;
 import me.feeldev.animorph.common.constants.HitboxPoseType;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
@@ -69,66 +65,84 @@ public abstract class AnimorphModelDefinition {
      * @return the display name, or {@code null} to use the player's real username
      */
     public String getDisplayName() {
-        return null;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     // -----------------------------------------------------------------------
     // Simple case: override these to point at bundled classpath resources.
     // -----------------------------------------------------------------------
-
-    /** Classpath path to the default (non-slim) geometry JSON, or {@code null} if not available. */
+    /**
+     * Classpath path to the default (non-slim) geometry JSON, or {@code null} if not available.
+     */
     protected String modelResourcePath() {
-        return null;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Classpath path to the slim (Alex) geometry JSON, or {@code null} to fall back to the default model for slim players too. */
+    /**
+     * Classpath path to the slim (Alex) geometry JSON, or {@code null} to fall back to the default model for slim players too.
+     */
     protected String slimModelResourcePath() {
-        return null;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Classpath path to the animation JSON, or {@code null} if this model has no animations. */
+    /**
+     * Classpath path to the animation JSON, or {@code null} if this model has no animations.
+     */
     protected String animationResourcePath() {
-        return null;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Classpath path to the texture PNG. */
+    /**
+     * Classpath path to the texture PNG.
+     */
     protected String textureResourcePath() {
-        return null;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** Classpath path to the texture's {@code .mcmeta} animation file, or {@code null} for a static texture. */
+    /**
+     * Classpath path to the texture's {@code .mcmeta} animation file, or {@code null} for a static texture.
+     */
     protected String textureAnimationResourcePath() {
-        return null;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     // -----------------------------------------------------------------------
     // Advanced case: override these directly for dynamically-generated content.
     // Defaults just read the *ResourcePath() above.
     // -----------------------------------------------------------------------
-
-    /** @return the default geometry JSON content. */
+    /**
+     * @return the default geometry JSON content.
+     */
     public String getModelContent() {
-        return readText(modelResourcePath());
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** @return the slim geometry JSON content, or {@code null}. */
+    /**
+     * @return the slim geometry JSON content, or {@code null}.
+     */
     public String getSlimModelContent() {
-        return readText(slimModelResourcePath());
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** @return the animation JSON content, or {@code null}. */
+    /**
+     * @return the animation JSON content, or {@code null}.
+     */
     public String getAnimationContent() {
-        return readText(animationResourcePath());
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** @return the raw PNG texture bytes. */
+    /**
+     * @return the raw PNG texture bytes.
+     */
     public byte[] getTextureBytes() {
-        return readBytes(textureResourcePath());
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** @return the texture's {@code .mcmeta} JSON content, or {@code null} for a static texture. */
+    /**
+     * @return the texture's {@code .mcmeta} JSON content, or {@code null} for a static texture.
+     */
     public String getTextureAnimation() {
-        return readText(textureAnimationResourcePath());
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     // -----------------------------------------------------------------------
@@ -137,43 +151,51 @@ public abstract class AnimorphModelDefinition {
     // or a {@code client:<id>}. When a ref is set, the matching content above is ignored — e.g. for
     // models whose files live on a CDN, or that are too big for a game packet.
     // -----------------------------------------------------------------------
-
-    /** @return the default geometry's ref, or {@code null} to send {@link #getModelContent()}. */
+    /**
+     * @return the default geometry's ref, or {@code null} to send {@link #getModelContent()}.
+     */
     public String getModelRef() {
-        return null;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** @return the slim geometry's ref, or {@code null} to send {@link #getSlimModelContent()}. */
+    /**
+     * @return the slim geometry's ref, or {@code null} to send {@link #getSlimModelContent()}.
+     */
     public String getSlimModelRef() {
-        return null;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** @return the animation's ref, or {@code null} to send {@link #getAnimationContent()}. */
+    /**
+     * @return the animation's ref, or {@code null} to send {@link #getAnimationContent()}.
+     */
     public String getAnimationRef() {
-        return null;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** @return the texture's ref, or {@code null} to send {@link #getTextureBytes()}. */
+    /**
+     * @return the texture's ref, or {@code null} to send {@link #getTextureBytes()}.
+     */
     public String getTextureRef() {
-        return null;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** @return the layers attached to this model; empty if none. */
+    /**
+     * @return the layers attached to this model; empty if none.
+     */
     public List<AnimorphLayerDefinition> getLayers() {
-        return List.of();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     // -----------------------------------------------------------------------
     // Properties — mirror the yml model's properties: block. All defaults below
     // reproduce exactly the same behavior as a yml model with no properties: section.
     // -----------------------------------------------------------------------
-
     /**
      * @return native/content-based animation controllers active for this model. Empty by default
      * (no controllers active — same as a yml model with no {@code properties.animation_controllers}).
      */
     public List<AnimorphControllerDefinition> getAnimationControllers() {
-        return List.of();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -181,22 +203,28 @@ public abstract class AnimorphModelDefinition {
      * {@code properties.fp_animation_controllers}).
      */
     public List<AnimorphControllerDefinition> getFpAnimationControllers() {
-        return List.of();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** @return {@code true} if this model is a layer (doesn't replace the player model). Default {@code false}. */
+    /**
+     * @return {@code true} if this model is a layer (doesn't replace the player model). Default {@code false}.
+     */
     public boolean isLayer() {
-        return false;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** @return the Minecraft RenderType name. Default {@code "entity_cutout_no_cull"} (matches the yml default). */
+    /**
+     * @return the Minecraft RenderType name. Default {@code "entity_cutout_no_cull"} (matches the yml default).
+     */
     public String getRenderType() {
-        return "entity_cutout_no_cull";
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** @return whether to hide the player's nametag while this model is active. Default {@code false}. */
+    /**
+     * @return whether to hide the player's nametag while this model is active. Default {@code false}.
+     */
     public boolean isHideNametag() {
-        return false;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -204,12 +232,14 @@ public abstract class AnimorphModelDefinition {
      * defaults (same as a yml model with no {@code properties.first_person} section).
      */
     public IFirstPersonProperty getFirstPersonProperty() {
-        return null;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
-    /** @return dynamic text placeholders (placeholder id -> initial value). Empty by default. */
+    /**
+     * @return dynamic text placeholders (placeholder id -> initial value). Empty by default.
+     */
     public Map<String, String> getTextPlaceholders() {
-        return Map.of();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -217,7 +247,7 @@ public abstract class AnimorphModelDefinition {
      * use only the default STANDING hitbox — same as a yml model with no {@code hitboxes:} block.
      */
     public Map<HitboxPoseType, String> getHitboxContents() {
-        return Map.of();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -227,7 +257,7 @@ public abstract class AnimorphModelDefinition {
      * {@code equipment:} block; every slot still resolves to an empty-content placeholder, never null.
      */
     public Map<EquipmentType, String> getEquipmentContents() {
-        return Map.of();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -237,14 +267,13 @@ public abstract class AnimorphModelDefinition {
      * {@code equipment.items:} block.
      */
     public Map<String, Map<EquipmentType, String>> getItemEquipmentContents() {
-        return Map.of();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     // -----------------------------------------------------------------------
     // Resource-reading helpers — resolve against this class's own classloader,
     // so no Class<?> handle ever needs to be passed to Animorph.
     // -----------------------------------------------------------------------
-
     /**
      * Reads a classpath resource bundled in this class's own jar as a UTF-8 string.
      *
@@ -253,8 +282,7 @@ public abstract class AnimorphModelDefinition {
      * @throws IllegalStateException if the resource cannot be found or read
      */
     protected final String readText(String classpathPath) {
-        byte[] bytes = readBytes(classpathPath);
-        return bytes == null ? null : new String(bytes, StandardCharsets.UTF_8);
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -265,16 +293,6 @@ public abstract class AnimorphModelDefinition {
      * @throws IllegalStateException if the resource cannot be found or read
      */
     protected final byte[] readBytes(String classpathPath) {
-        if (classpathPath == null) return null;
-        String normalized = classpathPath.startsWith("/") ? classpathPath.substring(1) : classpathPath;
-        try (InputStream in = getClass().getClassLoader().getResourceAsStream(normalized)) {
-            if (in == null) {
-                throw new IllegalStateException(
-                        "Classpath resource not found: " + classpathPath + " (class: " + getClass().getName() + ")");
-            }
-            return in.readAllBytes();
-        } catch (IOException e) {
-            throw new IllegalStateException("Failed to read classpath resource: " + classpathPath, e);
-        }
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }

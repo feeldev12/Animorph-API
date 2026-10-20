@@ -1,7 +1,6 @@
 package me.feeldev.animorph.client.api.event;
 
 import me.feeldev.animorph.api.event.AnimorphEvent;
-
 import java.util.Set;
 import java.util.UUID;
 
@@ -12,15 +11,10 @@ import java.util.UUID;
  * Use it to react to emote changes (e.g. play sounds, trigger particles).
  */
 public class ClientEmotePlayEvent extends AnimorphEvent<UUID> {
-    private final String emoteId;
-    private final Set<String> layerIds;
-    private final double startTick;
 
     public ClientEmotePlayEvent(UUID playerId, String emoteId, Set<String> layerIds, double startTick) {
         super(playerId);
-        this.emoteId = emoteId;
-        this.layerIds = layerIds;
-        this.startTick = startTick;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -29,7 +23,7 @@ public class ClientEmotePlayEvent extends AnimorphEvent<UUID> {
      * @return the player UUID
      */
     public UUID getPlayerId() {
-        return getPlayer();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -38,7 +32,7 @@ public class ClientEmotePlayEvent extends AnimorphEvent<UUID> {
      * @return the emote ID, or {@code "empty"} if stopping
      */
     public String getEmoteId() {
-        return emoteId;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -47,7 +41,7 @@ public class ClientEmotePlayEvent extends AnimorphEvent<UUID> {
      * @return the layer IDs, or {@code null} if model-level
      */
     public Set<String> getLayerIds() {
-        return layerIds;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -56,7 +50,7 @@ public class ClientEmotePlayEvent extends AnimorphEvent<UUID> {
      * @return the start tick, or {@code -1} if from the beginning
      */
     public double getStartTick() {
-        return startTick;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -65,7 +59,7 @@ public class ClientEmotePlayEvent extends AnimorphEvent<UUID> {
      * @return {@code true} if targeting specific layers
      */
     public boolean isLayerEmote() {
-        return layerIds != null && !layerIds.isEmpty();
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
     /**
@@ -74,6 +68,6 @@ public class ClientEmotePlayEvent extends AnimorphEvent<UUID> {
      * @return {@code true} if the emote is being cleared
      */
     public boolean isClearing() {
-        return "empty".equals(emoteId) || emoteId == null;
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }
