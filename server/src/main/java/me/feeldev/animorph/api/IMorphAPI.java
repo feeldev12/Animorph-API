@@ -395,6 +395,35 @@ public interface IMorphAPI<P> {
     boolean registerModel(AnimorphModelDefinition definition);
 
     /**
+     * Registers a model that works like an already registered one (the template) but looks like
+     * {@code definition}: e.g. another player model on the same skeleton, or a creature that moves
+     * with the server's player controllers and its own animations.
+     * <p>
+     * From the template: its animation controllers (third and first person), properties (render
+     * type, first person, hitboxes, nametag, text placeholders) and equipment. From the definition:
+     * id, display name, geometry (and slim geometry), texture and layers — never the template's
+     * texture: without one the model is drawn with the player's skin. The animation is the
+     * definition's, or the template's when it has none. Every other property of the definition is
+     * ignored. The template is read once, now: later changes to it (e.g. a reload) don't reach this
+     * model.
+     * <pre>{@code
+     * class RemotePlayerModel extends AnimorphModelDefinition {
+     *     public String getModelId() { return "chibi_player"; }
+     *     public String getModelRef() { return "https://cdn.example.com/chibi.geo.json#sha256=..."; }
+     * }
+     * api.registerModelFrom("player", new RemotePlayerModel());
+     * api.updateModel(player, "chibi_player", false);
+     * }</pre>
+     *
+     * @param templateModelId a registered model
+     * @param definition      the new model; {@link AnimorphModelDefinition#getModelId()} must be
+     *                        non-null and non-empty
+     * @return {@code true} if the model was added; {@code false} if the template isn't registered
+     *         or a disk-loaded model already occupies the id (as {@link #registerModel})
+     */
+    boolean registerModelFrom(String templateModelId, AnimorphModelDefinition definition);
+
+    /**
      * Removes a registered model from the live model registry.
      * <p>
      * If no model with the given ID exists, this is a no-op — no exception is thrown.
