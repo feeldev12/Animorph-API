@@ -766,4 +766,24 @@ public interface IMorphAPI<P> {
     default void prefetchAssets(Collection<String> refs, P... viewers) {
         throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
+
+    /**
+     * Gives the player an emote wheel with these emotes (at most {@link EmoteWheelEntry#MAX_ENTRIES},
+     * in order). The player holds the wheel key (B by default), picks one with the mouse and lets go
+     * to play it; everyone tracking them sees it. The server only plays an emote that's on the
+     * player's wheel, so a client can never play one it wasn't given. An empty list takes the wheel
+     * away. Each emote must be registered ({@link #registerEmotes} or on disk).
+     * <p>
+     * Only on Fabric/Forge/NeoForge servers for now; other platforms ignore it.
+     */
+    default void setEmoteWheel(P player, List<EmoteWheelEntry> entries) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    /**
+     * The emotes on the player's wheel; empty if none.
+     */
+    default List<EmoteWheelEntry> getEmoteWheel(P player) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
 }
