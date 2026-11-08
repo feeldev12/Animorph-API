@@ -320,6 +320,44 @@ public final class ClientMorphAPI {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Ragdoll API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // VR API
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Makes a player's avatar follow a VR headset: its hips, head and arms reach for the pose's head
+     * and hands (IK), while the legs keep their animation. The pose holds until changed or
+     * {@link #clearVrPose(UUID) cleared}; call this every frame with the latest tracking.
+     *
+     * <pre>{@code
+     * ClientMorphAPI.setVrPose(player.getUUID(), new VrPose(eye, headRotation, leftGrip, rightGrip));
+     * }</pre>
+     *
+     * @param playerId the player
+     * @param pose     the headset's pose in the player's model space (see {@link VrPose})
+     */
+    public static void setVrPose(UUID playerId, VrPose pose) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    /**
+     * Gives a player's avatar back to its animations.
+     *
+     * @param playerId the player
+     */
+    public static void clearVrPose(UUID playerId) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    /**
+     * Whether a player's avatar follows a VR pose.
+     *
+     * @param playerId the player
+     * @return {@code true} while a pose is set (or the {@code /animorphclient vrtest} pose is on)
+     */
+    public static boolean hasVrPose(UUID playerId) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
     /**
      * Triggers procedural ragdoll physics for a morphed player.
      * <p>

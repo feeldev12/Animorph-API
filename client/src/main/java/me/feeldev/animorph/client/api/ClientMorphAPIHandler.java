@@ -55,4 +55,10 @@ public interface ClientMorphAPIHandler {
     void stopRagdoll(UUID playerId);
 
     boolean isRagdolled(UUID playerId);
+
+    void setVrPose(UUID playerId, VrPose pose);
+
+    void clearVrPose(UUID playerId);
+
+    boolean hasVrPose(UUID playerId);
 }
