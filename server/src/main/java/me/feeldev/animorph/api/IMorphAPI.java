@@ -3,6 +3,7 @@ package me.feeldev.animorph.api;
 import me.feeldev.animorph.api.event.AnimorphEventBus;
 import me.feeldev.animorph.common.models.Hitboxes;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -438,6 +439,37 @@ public interface IMorphAPI<P> {
      * @return {@code true} in all cases (the operation is always safe even if the ID was absent)
      */
     boolean unregisterModel(String modelId);
+
+    /**
+     * Registers emotes from an animation file the game clients download themselves (never sent in a
+     * game packet): one emote per name in {@link AnimorphEmoteDefinition#animations()}, with id
+     * {@code "<namespace>:<name>"}, ready for {@link #playEmote}. Like a disk emote with
+     * {@code animation: client:<id>} and an {@code animations:} list, plus its properties.
+     *
+     * <pre>{@code
+     * List<String> ids = api.registerEmotes(new AnimorphEmoteDefinition(
+     *         "wave", "https://cdn.example.com/wave.animation.json#sha256=...", List.of("emote.wave")));
+     * api.playEmote(player, ids.get(0), null);
+     * }</pre>
+     *
+     * <p>Registering the same emote again with the same values does nothing; with other values it
+     * replaces it. Registered emotes survive {@code /animorph reload}. A disk emote with the same id
+     * wins (that one isn't registered and isn't in the result).
+     *
+     * @param definition the emotes to register
+     * @return the ids registered (or already registered the same)
+     * @throws IllegalArgumentException on an invalid namespace, animation name or ref
+     */
+    List<String> registerEmotes(AnimorphEmoteDefinition definition);
+
+    /**
+     * Removes an emote registered with {@link #registerEmotes}. A disk emote, or an id that isn't
+     * registered, is left alone.
+     *
+     * @param emoteId the emote id ({@code "<namespace>:<name>"})
+     * @return {@code true} if it was removed
+     */
+    boolean unregisterEmote(String emoteId);
 
     /**
      * Sets a player's personal default model.
