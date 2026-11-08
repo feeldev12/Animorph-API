@@ -3,6 +3,7 @@ package me.feeldev.animorph.api;
 import me.feeldev.animorph.api.event.AnimorphEventBus;
 import me.feeldev.animorph.common.models.Hitboxes;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -440,6 +441,37 @@ public interface IMorphAPI<P> {
     boolean unregisterModel(String modelId);
 
     /**
+     * Registers emotes from an animation file the game clients download themselves (never sent in a
+     * game packet): one emote per name in {@link AnimorphEmoteDefinition#animations()}, with id
+     * {@code "<namespace>:<name>"}, ready for {@link #playEmote}. Like a disk emote with
+     * {@code animation: client:<id>} and an {@code animations:} list, plus its properties.
+     *
+     * <pre>{@code
+     * List<String> ids = api.registerEmotes(new AnimorphEmoteDefinition(
+     *         "wave", "https://cdn.example.com/wave.animation.json#sha256=...", List.of("emote.wave")));
+     * api.playEmote(player, ids.get(0), null);
+     * }</pre>
+     *
+     * <p>Registering the same emote again with the same values does nothing; with other values it
+     * replaces it. Registered emotes survive {@code /animorph reload}. A disk emote with the same id
+     * wins (that one isn't registered and isn't in the result).
+     *
+     * @param definition the emotes to register
+     * @return the ids registered (or already registered the same)
+     * @throws IllegalArgumentException on an invalid namespace, animation name or ref
+     */
+    List<String> registerEmotes(AnimorphEmoteDefinition definition);
+
+    /**
+     * Removes an emote registered with {@link #registerEmotes}. A disk emote, or an id that isn't
+     * registered, is left alone.
+     *
+     * @param emoteId the emote id ({@code "<namespace>:<name>"})
+     * @return {@code true} if it was removed
+     */
+    boolean unregisterEmote(String emoteId);
+
+    /**
      * Sets a player's personal default model.
      * <p>
      * Whenever this player's model would otherwise become {@code "empty"} — via {@link #clearModel}
@@ -732,6 +764,26 @@ public interface IMorphAPI<P> {
      */
     @SuppressWarnings("unchecked")
     default void prefetchAssets(Collection<String> refs, P... viewers) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    /**
+     * Gives the player an emote wheel with these emotes (at most {@link EmoteWheelEntry#MAX_ENTRIES},
+     * in order). The player holds the wheel key (B by default), picks one with the mouse and lets go
+     * to play it; everyone tracking them sees it. The server only plays an emote that's on the
+     * player's wheel, so a client can never play one it wasn't given. An empty list takes the wheel
+     * away. Each emote must be registered ({@link #registerEmotes} or on disk).
+     * <p>
+     * Only on Fabric/Forge/NeoForge servers for now; other platforms ignore it.
+     */
+    default void setEmoteWheel(P player, List<EmoteWheelEntry> entries) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    /**
+     * The emotes on the player's wheel; empty if none.
+     */
+    default List<EmoteWheelEntry> getEmoteWheel(P player) {
         throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 }
