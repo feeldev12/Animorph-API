@@ -24,6 +24,14 @@ public interface ClientMorphAPIHandler {
 
     void addAnimationEvent(String animation, double tick, String event, boolean sendToServer);
 
+    default void addCameraCut(String animation, double tick, String cameraId, int blendTicks) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    default ActiveCamera getActiveCamera() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
     <T extends IPlayerData> void addMolangQuery(ICustomMolangQuery<T> query);
 
     Optional<String> getPlayerModelId(UUID playerId);
