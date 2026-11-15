@@ -808,6 +808,10 @@ public interface IMorphAPI<P> {
      * anything. A player who turned camera animations off (accessibility) keeps the view at their eyes
      * anyway; {@code aim LOCKED} and {@code lockPerspective} still apply to them.
      * <p>
+     * {@link CameraOptions#look()} overrides the camera's {@code look} for this order: {@code FIXED} keeps the
+     * animated shot whatever the mouse does (base: the yaw of the player's body when the camera became
+     * active, pitch 0), {@code FOLLOW} turns with the mouse; {@code null} keeps the model's.
+     * <p>
      * Works on Fabric/Forge/NeoForge servers and on Bukkit/Paper. Clients without this Animorph
      * version ignore it.
      */

@@ -13,6 +13,7 @@ package me.feeldev.animorph.api;
  *         .aim(CameraAim.LOCKED)                       // no crosshair while it lasts
  *         .blendTicks(10)                              // half a second to get there
  *         .lockPerspective(true)                       // F5 does nothing until released
+ *         .look(CameraLook.FIXED)                      // the mouse doesn't turn the view
  *         .build());
  * api.releaseCamera(player);                           // back to the animation / default camera
  * }</pre>
@@ -23,8 +24,10 @@ package me.feeldev.animorph.api;
  *                        {@value #MAX_BLEND_TICKS}; {@code -1} = the model's
  * @param lockPerspective keep the player in first person (F5 does nothing) while this camera is forced
  * @param showBody        draw the player's whole body while this camera is active; {@code null} = the model's
+ * @param look            whether the view turns with the mouse ({@link CameraLook#FOLLOW}) or keeps the animated
+ *                        shot ({@link CameraLook#FIXED}); {@code null} = the model's
  */
-public record CameraOptions(String id, CameraAim aim, int blendTicks, boolean lockPerspective, Boolean showBody) {
+public record CameraOptions(String id, CameraAim aim, int blendTicks, boolean lockPerspective, Boolean showBody, CameraLook look) {
 
     /**
      * The {@code camera} bone.
@@ -46,6 +49,14 @@ public record CameraOptions(String id, CameraAim aim, int blendTicks, boolean lo
     public static final int MODEL_BLEND = -1;
 
     public CameraOptions {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    /**
+     * Options without a look override (the model's look), as before {@link CameraLook} existed.
+     */
+    public CameraOptions(String id, CameraAim aim, int blendTicks, boolean lockPerspective, Boolean showBody) {
+        this(id, aim, blendTicks, lockPerspective, showBody, null);
         throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
@@ -113,6 +124,21 @@ public record CameraOptions(String id, CameraAim aim, int blendTicks, boolean lo
          * Draw the player's whole body; {@code null} = the model's.
          */
         public Builder showBody(Boolean showBody) {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
+
+        /**
+         * Whether the view turns with the mouse or keeps the animated shot; {@code null} = the model's.
+         */
+        public Builder look(CameraLook look) {
+            throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+        }
+
+        /**
+         * Shorthand for {@link #look}: {@code true} = {@link CameraLook#FIXED} (the mouse doesn't turn the view),
+         * {@code false} = {@link CameraLook#FOLLOW}.
+         */
+        public Builder lockLook(boolean lockLook) {
             throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
         }
 
