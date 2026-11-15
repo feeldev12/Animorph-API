@@ -208,6 +208,42 @@ public final class ClientMorphAPI {
         throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
 
+    /**
+     * Adds a camera cut from code, at a tick of an animation, without a keyframe in the animation file: from
+     * that tick on (while the animation plays on the player's body) the view uses the camera {@code cameraId}.
+     * Same as an {@code animorph:camera:<id>} keyframe placed with the Blockbench plugin.
+     *
+     * <pre>{@code
+     * // emote "wave": close-up camera from 0 s, wide camera from 1 s (20 ticks), half a second blend
+     * ClientMorphAPI.addCameraCut("wave", 0, "close");
+     * ClientMorphAPI.addCameraCut("wave", 20, "wide", 10);
+     * }</pre>
+     *
+     * @param animation  the animation name, as in the animation file
+     * @param tick       the animation tick (>= 0)
+     * @param cameraId   {@code default} (the {@code camera} bone) or the id of a {@code camera_<id>} bone
+     * @param blendTicks ticks to move smoothly to it (0..1200, 0 = cut); -1 = the model's
+     */
+    public static void addCameraCut(String animation, double tick, String cameraId, int blendTicks) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    /**
+     * {@link #addCameraCut(String, double, String, int)} with the model's blend for that camera.
+     */
+    public static void addCameraCut(String animation, double tick, String cameraId) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    /**
+     * The animated camera driving the local player's view: which camera ({@code default}, a {@code camera_<id>}
+     * id, or none), where it comes from (accessibility, server, animation cut, default) and its settings.
+     * Listen to {@link me.feeldev.animorph.client.api.event.ClientCameraChangeEvent} to react to changes.
+     */
+    public static ActiveCamera getActiveCamera() {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Player State API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

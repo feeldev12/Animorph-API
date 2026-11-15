@@ -786,4 +786,55 @@ public interface IMorphAPI<P> {
     default List<EmoteWheelEntry> getEmoteWheel(P player) {
         throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
     }
+
+    /**
+     * Forces one of the player's model cameras with the model's settings for it. Same as
+     * {@code setCamera(player, CameraOptions.of(cameraId))}.
+     *
+     * @param cameraId {@value CameraOptions#DEFAULT} (the {@code camera} bone) or the id of a
+     *                 {@code camera_<id>} bone
+     * @see #setCamera(Object, CameraOptions)
+     */
+    default void setCamera(P player, String cameraId) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    /**
+     * Forces an animated camera on the player until {@link #releaseCamera} (or until they leave): it wins
+     * over the camera cuts of the animation they play. Only the player sees it; nobody else is told.
+     * <p>
+     * If their current model has no such camera, the {@code camera} bone is used, or the vanilla view
+     * when there's none; changing their model picks it again from the new model, without sending
+     * anything. A player who turned camera animations off (accessibility) keeps the view at their eyes
+     * anyway; {@code aim LOCKED} and {@code lockPerspective} still apply to them.
+     * <p>
+     * Works on Fabric/Forge/NeoForge servers and on Bukkit/Paper. Clients without this Animorph
+     * version ignore it.
+     */
+    default void setCamera(P player, CameraOptions options) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    /**
+     * Lets go of the camera forced with {@link #setCamera}: back to the animation's cuts or the default camera.
+     */
+    default void releaseCamera(P player) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    /**
+     * The camera forced on the player with {@link #setCamera}; empty when none.
+     */
+    default Optional<CameraOptions> getCamera(P player) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
+
+    /**
+     * The cameras a registered model has: {@value CameraOptions#DEFAULT} when it has a {@code camera} bone,
+     * plus every {@code camera_<id>} bone and every camera configured under {@code properties.cameras}.
+     * Empty for an unknown model or one whose geometry the server doesn't have (client-provided).
+     */
+    default Set<String> getModelCameras(String modelId) {
+        throw new UnsupportedOperationException("Animorph API: provided by the Animorph mod at runtime");
+    }
 }
